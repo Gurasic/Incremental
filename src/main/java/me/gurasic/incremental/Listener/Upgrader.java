@@ -141,7 +141,7 @@ public class Upgrader implements Listener {
                     BN1 = 10;
                     BN2 = 2;
                 }
-                player.damage(5000);
+                player.setHealth(0.0);
                 plugin.storePlayerData(player.getUniqueId(), "pointCount", new BigInteger("0"));
                 plugin.storePlayerData(player.getUniqueId(), "multiCount", 1);
                 plugin.storePlayerData(player.getUniqueId(), "playerLevel", 1);
