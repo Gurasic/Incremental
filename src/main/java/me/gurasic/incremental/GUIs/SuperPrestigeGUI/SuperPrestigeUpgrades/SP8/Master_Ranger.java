@@ -29,18 +29,18 @@ public class Master_Ranger extends AbstractItem {
     }
     @Override
     public ItemProvider getItemProvider() {
-        if ((boolean) accessPlayerData(playerUUID, "Serial_Killer")) {
+        if ((boolean) accessPlayerData(playerUUID, "Master_Ranger")) {
             return new ItemBuilder(Material.WHITE_STAINED_GLASS_PANE)
-                    .setDisplayName("§eSerial_Killer §610☽")
-                    .addLoreLines("§7You get even more §a+1§7 at kill")
+                    .setDisplayName("§eMaster_Ranger §610☽")
+                    .addLoreLines("§7Your bow is 1 level of power higher")
                     .addItemFlags(ItemFlag.HIDE_ENCHANTS)
-                    .setAmount(8)
+                    .setAmount(9)
                     .addEnchantment(Enchantment.LURE, 1, true);
         } else {
             return new ItemBuilder(Material.WHITE_STAINED_GLASS_PANE)
-                    .setDisplayName("§eSerial_Killer §610☽")
-                    .addLoreLines("§7You get even more §a+1§7 at kill")
-                    .setAmount(8)
+                    .setDisplayName("§eMaster_Ranger §610☽")
+                    .addLoreLines("§7Your bow is 1 level of power higher")
+                    .setAmount(9)
                     .addItemFlags(ItemFlag.HIDE_ENCHANTS);
         }
     }
@@ -49,8 +49,8 @@ public class Master_Ranger extends AbstractItem {
     public void handleClick(@NotNull ClickType clickType, @NotNull Player player, @NotNull InventoryClickEvent inventoryClickEvent) {
         int SP =  (int) accessPlayerData(playerUUID, "SuperPrestigePoints");
         if (clickType.isLeftClick()) {
-            if (SP >= 10 && (boolean) accessPlayerData(playerUUID, "QuickBuy")) {
-                storePlayerData(playerUUID, "Serial_Killer", true);
+            if (SP >= 10 && (boolean) accessPlayerData(playerUUID, "Hasty_Hands")) {
+                storePlayerData(playerUUID, "Master_Ranger", true);
                 storePlayerData(playerUUID, "SuperPrestigePoints", SP - 10);
                 SuperPrestigeItem.window.changeTitle("Super Prestige Shop | " + accessPlayerData(player.getUniqueId(), "SuperPrestigePoints") + "☽");
                 Scoreboard scoreboard = Bukkit.getScoreboardManager().getMainScoreboard();

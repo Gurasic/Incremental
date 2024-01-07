@@ -1,6 +1,7 @@
 package me.gurasic.incremental.GUIs.SuperPrestigeGUI.SuperPrestigeUpgrades.SP1;
 
 import me.gurasic.incremental.GUIs.SuperPrestigeGUI.SuperPrestigeItem;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -10,6 +11,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemFlag;
+import org.bukkit.scoreboard.Scoreboard;
+import org.bukkit.scoreboard.Team;
 import org.jetbrains.annotations.NotNull;
 import xyz.xenondevs.invui.item.ItemProvider;
 import xyz.xenondevs.invui.item.builder.ItemBuilder;
@@ -28,16 +31,22 @@ public class Good_Will extends AbstractItem {
     }
     @Override
     public ItemProvider getItemProvider() {
-        if ((boolean) accessPlayerData(playerUUID, "RangerSP")) {
+        if ((boolean) accessPlayerData(playerUUID, "Good_Will")) {
             return new ItemBuilder(Material.WHITE_STAINED_GLASS_PANE)
-                    .setDisplayName("§eRanger §61☽")
-                    .addLoreLines("§7Get a bow that scales with gear levels")
+                    .setDisplayName("§eGood Will §62☽")
+                    .addLoreLines("§7You no longer count towards the players")
+                    .addLoreLines("§7on the §egold block§7, but you can profit from it,")
+                    .addLoreLines("§7And receive a special prefix next to your name")
                     .addItemFlags(ItemFlag.HIDE_ENCHANTS)
+                    .setAmount(2)
                     .addEnchantment(Enchantment.LURE, 1, true);
         } else {
             return new ItemBuilder(Material.WHITE_STAINED_GLASS_PANE)
-                    .setDisplayName("§eRanger §61☽")
-                    .addLoreLines("§7Get a bow that scales with gear levels")
+                    .setDisplayName("§eGood Will §62☽")
+                    .addLoreLines("§7You no longer count towards the players")
+                    .addLoreLines("§7on the §egold block§7, but you can profit from it,")
+                    .addLoreLines("§7And receive a special prefix next to your name")
+                    .setAmount(2)
                     .addItemFlags(ItemFlag.HIDE_ENCHANTS);
         }
     }
@@ -46,10 +55,17 @@ public class Good_Will extends AbstractItem {
     public void handleClick(@NotNull ClickType clickType, @NotNull Player player, @NotNull InventoryClickEvent inventoryClickEvent) {
         int SP =  (int) accessPlayerData(playerUUID, "SuperPrestigePoints");
         if (clickType.isLeftClick()) {
-            if (SP >= 1) {
-                storePlayerData(playerUUID, "RangerSP", true);
-                storePlayerData(playerUUID, "SuperPrestigePoints", SP - 1);
+            if (SP >= 2 && (boolean) accessPlayerData(playerUUID, "RangerSP")) {
+                storePlayerData(playerUUID, "Good_Will", true);
+                storePlayerData(playerUUID, "SuperPrestigePoints", SP - 2);
                 SuperPrestigeItem.window.changeTitle("Super Prestige Shop | " + accessPlayerData(player.getUniqueId(), "SuperPrestigePoints") + "☽");
+                Scoreboard scoreboard = Bukkit.getScoreboardManager().getMainScoreboard();
+                Team team = scoreboard.getTeam("goodWill");
+                if (team == null) {
+                    team = scoreboard.registerNewTeam("goodWill");
+                }
+                team.setPrefix("§6⚛");
+                team.addEntry(player.getName());
                 player.playSound(player, Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 10f,0f);
                 player.playSound(player, Sound.ENTITY_GENERIC_EXPLODE, 10f,0f);
             }

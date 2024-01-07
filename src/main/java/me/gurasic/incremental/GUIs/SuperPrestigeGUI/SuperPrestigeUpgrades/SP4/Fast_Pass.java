@@ -29,18 +29,18 @@ public class Fast_Pass extends AbstractItem {
     }
     @Override
     public ItemProvider getItemProvider() {
-        if ((boolean) accessPlayerData(playerUUID, "Clicking_Expert")) {
+        if ((boolean) accessPlayerData(playerUUID, "Fast_Pass")) {
             return new ItemBuilder(Material.WHITE_STAINED_GLASS_PANE)
-                    .setDisplayName("§eClicking Expert §64☽")
-                    .addLoreLines("§7Your clicker gives §a2x§7 as much +1")
+                    .setDisplayName("§eFast Pass §65☽")
+                    .addLoreLines("§7You can skip to level §661§7 each prestige")
                     .addItemFlags(ItemFlag.HIDE_ENCHANTS)
-                    .setAmount(4)
+                    .setAmount(5)
                     .addEnchantment(Enchantment.LURE, 1, true);
         } else {
             return new ItemBuilder(Material.WHITE_STAINED_GLASS_PANE)
-                    .setDisplayName("§eClicking Expert §64☽")
-                    .addLoreLines("§7Your clicker gives §a2x§7 as much +1")
-                    .setAmount(4)
+                    .setDisplayName("§eFast Pass §65☽")
+                    .addLoreLines("§7You can skip to level §661§7 each prestige")
+                    .setAmount(5)
                     .addItemFlags(ItemFlag.HIDE_ENCHANTS);
         }
     }
@@ -49,9 +49,9 @@ public class Fast_Pass extends AbstractItem {
     public void handleClick(@NotNull ClickType clickType, @NotNull Player player, @NotNull InventoryClickEvent inventoryClickEvent) {
         int SP =  (int) accessPlayerData(playerUUID, "SuperPrestigePoints");
         if (clickType.isLeftClick()) {
-            if (SP >= 4 && (boolean) accessPlayerData(playerUUID, "The_Perfect_Wish")) {
-                storePlayerData(playerUUID, "Clicking_Expert", true);
-                storePlayerData(playerUUID, "SuperPrestigePoints", SP - 4);
+            if (SP >= 5 && (boolean) accessPlayerData(playerUUID, "Fist_Mastery")) {
+                storePlayerData(playerUUID, "Fast_Pass", true);
+                storePlayerData(playerUUID, "SuperPrestigePoints", SP -5);
                 SuperPrestigeItem.window.changeTitle("Super Prestige Shop | " + accessPlayerData(player.getUniqueId(), "SuperPrestigePoints") + "☽");
                 Scoreboard scoreboard = Bukkit.getScoreboardManager().getMainScoreboard();
                 player.playSound(player, Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 10f,0f);

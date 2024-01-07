@@ -1,5 +1,6 @@
 package me.gurasic.incremental.GUIs.RebirthGUI.RebirthUpgrades;
 
+import me.gurasic.incremental.GUIs.RebirthGUI.RebirthGUIItem;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -26,17 +27,17 @@ public class Brightest_Night extends AbstractItem {
     }
     @Override
     public ItemProvider getItemProvider() {
-        if ((boolean) accessPlayerData(playerUUID, "Speedrunner")) {
-        return new ItemBuilder(Material.CLOCK).setDisplayName("§eSpeedrunner §8| §c10♦")
-                .addLoreLines("§7You get an extra superprestige, per superprestige")
-                .addLoreLines("§7But no moons from it")
+        if ((boolean) accessPlayerData(playerUUID, "Brightest_Night")) {
+        return new ItemBuilder(Material.SNOWBALL).setDisplayName("Brightest Night §8| §c10♦")
+                .addLoreLines("§7Upon Superprestige you get §a2x§7 the §d☽§7 and")
+                .addLoreLines("§7upon prestige you get §a+10§7 and 2x the §d★")
                 .addItemFlags(ItemFlag.HIDE_ENCHANTS)
                 .addEnchantment(Enchantment.LURE, 1, true);
         }
         else {
-            return new ItemBuilder(Material.CLOCK).setDisplayName("§eSpeedrunner §8| §c10♦")
-                    .addLoreLines("§7You get an extra superprestige, per superprestige")
-                    .addLoreLines("§7But no moons from it");
+            return new ItemBuilder(Material.SNOWBALL).setDisplayName("Brightest Night §8| §c10♦")
+                    .addLoreLines("§7Upon Superprestige you get §a2x§7 the §d☽§7 and")
+                    .addLoreLines("§7upon prestige you get §a+10§7 and 2x the §d★");
         }
     }
 
@@ -47,9 +48,10 @@ public class Brightest_Night extends AbstractItem {
         if (clickType.isLeftClick()) {
             if (RebirthPoints >= Cost) {
                 storePlayerData(player.getUniqueId(), "Rebirth_Points", RebirthPoints - Cost);
-                storePlayerData(player.getUniqueId(), "Speedrunner", true);
+                storePlayerData(player.getUniqueId(), "Brightest_Night", true);
                 player.playSound(player, Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 10f,0f);
                 player.playSound(player, Sound.ENTITY_GENERIC_EXPLODE, 10f,0f);
+                RebirthGUIItem.window.changeTitle("Rebirth Shop | " + accessPlayerData(player.getUniqueId(), "Rebirth_Points") + "♦");
             }
         }
         notifyWindows(); // this will update the ItemStack that is displayed to the player

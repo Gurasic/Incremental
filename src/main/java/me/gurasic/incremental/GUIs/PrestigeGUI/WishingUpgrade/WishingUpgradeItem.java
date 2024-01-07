@@ -17,17 +17,17 @@ import java.io.File;
 import java.util.UUID;
 import java.util.function.Supplier;
 
-public class PricesUpgradeItem extends AbstractItem {
+public class WishingUpgradeItem extends AbstractItem {
 
     public ItemProvider GrayGlass = new ItemBuilder(Material.GRAY_STAINED_GLASS_PANE)
             .setDisplayName(" ");
     public static Window window;
     @Override
     public ItemProvider getItemProvider() {
-        return new ItemBuilder(Material.EMERALD)
-                .setDisplayName("§aPrices")
-                .addLoreLines("§7Upgrading is slightly cheaper")
-                .addLoreLines("§8-1% per level");
+        return new ItemBuilder(Material.NETHER_STAR)
+                .setDisplayName("§5Wishing")
+                .addLoreLines("§7You ger more ★ per prestige")
+                .addLoreLines("§8+2 per level");
     }
 
     @Override
@@ -40,13 +40,13 @@ public class PricesUpgradeItem extends AbstractItem {
                 .addIngredient('1', GrayGlass)
                 .addIngredient('2', new ReturnItem())
                 .addIngredient('3', getItemProvider())
-                .addIngredient('4', new PricesUpgradeSign(1, new Supplier<ItemProvider>() {
+                .addIngredient('4', new WishingUpgradeSign(1, new Supplier<ItemProvider>() {
                     @Override
                     public ItemProvider get() {
-                        return new ItemBuilder(Material.OAK_SIGN).setDisplayName("§bLevel " +accessPlayerData(player.getUniqueId(), "PricesPrestigeLevel")+"/90");
+                        return new ItemBuilder(Material.OAK_SIGN).setDisplayName("§bLevel " +accessPlayerData(player.getUniqueId(), "WishingPrestigeLevel")+"/500");
                     }
                 }, player.getUniqueId()))
-                .addIngredient('5', new PricesUpgradeButton(player.getUniqueId()))
+                .addIngredient('5', new WishingUpgradeButton(player.getUniqueId()))
                 .build();
 
         window = Window.single()

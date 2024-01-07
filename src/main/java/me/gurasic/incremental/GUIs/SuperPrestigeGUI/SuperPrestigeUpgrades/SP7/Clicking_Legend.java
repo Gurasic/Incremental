@@ -29,17 +29,19 @@ public class Clicking_Legend extends AbstractItem {
     }
     @Override
     public ItemProvider getItemProvider() {
-        if ((boolean) accessPlayerData(playerUUID, "Serial_Killer")) {
+        if ((boolean) accessPlayerData(playerUUID, "Clicking_Legend")) {
             return new ItemBuilder(Material.WHITE_STAINED_GLASS_PANE)
-                    .setDisplayName("§eSerial_Killer §610☽")
-                    .addLoreLines("§7You get even more §a+1§7 at kill")
+                    .setDisplayName("§eClicking Legend §610☽")
+                    .addLoreLines("§7Your Clicker givex §a2x§7 the")
+                    .addLoreLines("§a+1§7 making it §a4x§7 ")
                     .addItemFlags(ItemFlag.HIDE_ENCHANTS)
                     .setAmount(8)
                     .addEnchantment(Enchantment.LURE, 1, true);
         } else {
             return new ItemBuilder(Material.WHITE_STAINED_GLASS_PANE)
-                    .setDisplayName("§eSerial_Killer §610☽")
-                    .addLoreLines("§7You get even more §a+1§7 at kill")
+                    .setDisplayName("§eClicking Legend §610☽")
+                    .addLoreLines("§7Your Clicker givex §a2x§7 the")
+                    .addLoreLines("§a+1§7 making it §a4x§7 ")
                     .setAmount(8)
                     .addItemFlags(ItemFlag.HIDE_ENCHANTS);
         }
@@ -50,7 +52,7 @@ public class Clicking_Legend extends AbstractItem {
         int SP =  (int) accessPlayerData(playerUUID, "SuperPrestigePoints");
         if (clickType.isLeftClick()) {
             if (SP >= 10 && (boolean) accessPlayerData(playerUUID, "Adrenaline")) {
-                storePlayerData(playerUUID, "Serial_Killer", true);
+                storePlayerData(playerUUID, "Clicking_Legend", true);
                 storePlayerData(playerUUID, "SuperPrestigePoints", SP - 10);
                 SuperPrestigeItem.window.changeTitle("Super Prestige Shop | " + accessPlayerData(player.getUniqueId(), "SuperPrestigePoints") + "☽");
                 Scoreboard scoreboard = Bukkit.getScoreboardManager().getMainScoreboard();

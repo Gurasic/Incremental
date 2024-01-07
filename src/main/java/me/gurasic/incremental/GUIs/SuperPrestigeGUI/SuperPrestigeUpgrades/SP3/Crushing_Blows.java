@@ -29,18 +29,18 @@ public class Crushing_Blows extends AbstractItem {
     }
     @Override
     public ItemProvider getItemProvider() {
-        if ((boolean) accessPlayerData(playerUUID, "Well_Feed")) {
+        if ((boolean) accessPlayerData(playerUUID, "Crushing_Blows")) {
             return new ItemBuilder(Material.WHITE_STAINED_GLASS_PANE)
-                    .setDisplayName("§eWell Fed Day §63☽")
-                    .addLoreLines("§7You get regeneration upon eating a steak")
+                    .setDisplayName("§eCrushing Blows §64☽")
+                    .addLoreLines("§7You get an axe that scales with level")
                     .addItemFlags(ItemFlag.HIDE_ENCHANTS)
-                    .setAmount(3)
+                    .setAmount(4)
                     .addEnchantment(Enchantment.LURE, 1, true);
         } else {
             return new ItemBuilder(Material.WHITE_STAINED_GLASS_PANE)
-                    .setDisplayName("§eWell Fed Day §63☽")
-                    .addLoreLines("§7You get regeneration upon eating a steak")
-                    .setAmount(3)
+                    .setDisplayName("§eCrushing Blows §64☽")
+                    .addLoreLines("§7You get an axe that scales with level")
+                    .setAmount(4)
                     .addItemFlags(ItemFlag.HIDE_ENCHANTS);
         }
     }
@@ -49,9 +49,9 @@ public class Crushing_Blows extends AbstractItem {
     public void handleClick(@NotNull ClickType clickType, @NotNull Player player, @NotNull InventoryClickEvent inventoryClickEvent) {
         int SP =  (int) accessPlayerData(playerUUID, "SuperPrestigePoints");
         if (clickType.isLeftClick()) {
-            if (SP >= 3 && (boolean) accessPlayerData(playerUUID, "Good_Will")) {
-                storePlayerData(playerUUID, "Well_Feed", true);
-                storePlayerData(playerUUID, "SuperPrestigePoints", SP - 3);
+            if (SP >= 4 && (boolean) accessPlayerData(playerUUID, "Well_Feed")) {
+                storePlayerData(playerUUID, "Crushing_Blows", true);
+                storePlayerData(playerUUID, "SuperPrestigePoints", SP - 4);
                 SuperPrestigeItem.window.changeTitle("Super Prestige Shop | " + accessPlayerData(player.getUniqueId(), "SuperPrestigePoints") + "☽");
                 Scoreboard scoreboard = Bukkit.getScoreboardManager().getMainScoreboard();
                 player.playSound(player, Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 10f,0f);

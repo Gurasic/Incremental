@@ -1,5 +1,6 @@
-package me.gurasic.incremental.GUIs.PrestigeGUI;
+package me.gurasic.incremental.GUIs.PrestigeGUI.ClickerUpgrade;
 
+import me.gurasic.incremental.GUIs.PrestigeGUI.ReturnItem;
 import me.gurasic.incremental.Incremental;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -15,11 +16,13 @@ import xyz.xenondevs.invui.window.Window;
 
 import java.io.File;
 import java.util.UUID;
+import java.util.function.Supplier;
 
 public class ClickerUpgradeItem extends AbstractItem {
 
     public ItemProvider GrayGlass = new ItemBuilder(Material.GRAY_STAINED_GLASS_PANE)
             .setDisplayName(" ");
+    public static Window window;
     @Override
     public ItemProvider getItemProvider() {
         return new ItemBuilder(Material.LIME_DYE)
@@ -27,16 +30,27 @@ public class ClickerUpgradeItem extends AbstractItem {
                 .addLoreLines("§7Upgrades the output of your clicker")
                 .addLoreLines("§8+3 per level");
     }
-    Gui ClickerGUI = Gui.normal() // Creates the GuiBuilder for a normal GUI
-            .setStructure(
-                    "1 1 1 1 1 1 1 1 1",
-                    "1 1 1 1 1 1 1 1 1",
-                    "1 1 1 1 1 1 1 1 1")
-            .addIngredient('1', GrayGlass)
-            .build();
+
     @Override
     public void handleClick(@NotNull ClickType clickType, @NotNull Player player, @NotNull InventoryClickEvent event) {
-        Window window = Window.single()
+        Gui ClickerGUI = Gui.normal() // Creates the GuiBuilder for a normal GUI
+                .setStructure(
+                        "1 1 1 1 3 1 1 1 1",
+                        "1 1 4 1 1 1 5 1 1",
+                        "1 1 1 1 2 1 1 1 1")
+                .addIngredient('1', GrayGlass)
+                .addIngredient('2', new ReturnItem())
+                .addIngredient('3', getItemProvider())
+                .addIngredient('4', new ClickerUpgradeSign(1, new Supplier<ItemProvider>() {
+                    @Override
+                    public ItemProvider get() {
+                        return new ItemBuilder(Material.OAK_SIGN).setDisplayName("§bLevel " +accessPlayerData(player.getUniqueId(), "ClickerPrestigeLevel")+"/500");
+                    }
+                }, player.getUniqueId()))
+                .addIngredient('5', new ClickerUpgradeButton(player.getUniqueId()))
+                .build();
+
+        window = Window.single()
                 .setViewer(player)
                 .setTitle("Prestige Shop | " + accessPlayerData(player.getUniqueId(), "prestigePoints") + "★")
                 .setGui(ClickerGUI)

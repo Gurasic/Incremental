@@ -17,17 +17,18 @@ import java.io.File;
 import java.util.UUID;
 import java.util.function.Supplier;
 
-public class ClickerUpgradeItem extends AbstractItem {
+public class GenerosityUpgradeItem extends AbstractItem {
 
     public ItemProvider GrayGlass = new ItemBuilder(Material.GRAY_STAINED_GLASS_PANE)
             .setDisplayName(" ");
     public static Window window;
     @Override
     public ItemProvider getItemProvider() {
-        return new ItemBuilder(Material.LIME_DYE)
-                .setDisplayName("§aClicker")
-                .addLoreLines("§7Upgrades the output of your clicker")
-                .addLoreLines("§8+3 per level");
+        return new ItemBuilder(Material.BOOK)
+                .setDisplayName("§dGenerosity")
+                .addLoreLines("§7Other players get more + from you")
+                .addLoreLines("§7and you get more + from other players")
+                .addLoreLines("§8+1 multiplier per level");
     }
 
     @Override
@@ -40,13 +41,13 @@ public class ClickerUpgradeItem extends AbstractItem {
                 .addIngredient('1', GrayGlass)
                 .addIngredient('2', new ReturnItem())
                 .addIngredient('3', getItemProvider())
-                .addIngredient('4', new ClickerUpgradeSign(1, new Supplier<ItemProvider>() {
+                .addIngredient('4', new GenerosityUpgradeSign(1, new Supplier<ItemProvider>() {
                     @Override
                     public ItemProvider get() {
-                        return new ItemBuilder(Material.OAK_SIGN).setDisplayName("§bLevel " +accessPlayerData(player.getUniqueId(), "ClickerPrestigeLevel")+"/500");
+                        return new ItemBuilder(Material.OAK_SIGN).setDisplayName("§bLevel " +accessPlayerData(player.getUniqueId(), "GenerosityPrestigeLevel")+"/500");
                     }
                 }, player.getUniqueId()))
-                .addIngredient('5', new ClickerUpgradeButton(player.getUniqueId()))
+                .addIngredient('5', new GenerosityUpgradeButton(player.getUniqueId()))
                 .build();
 
         window = Window.single()

@@ -1,8 +1,10 @@
 package me.gurasic.incremental.GUIs.PrestigeGUI.GenerosityUpgrade;
 
 import me.gurasic.incremental.GUIs.PrestigeGUI.PrestigeShopItem;
+import me.gurasic.incremental.GUIs.PrestigeGUI.ClickerUpgrade.ClickerUpgradeItem;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
@@ -25,22 +27,24 @@ public class GenerosityUpgradeButton extends AbstractItem {
     }
     @Override
     public ItemProvider getItemProvider() {
-        return new ItemBuilder(Material.MAGENTA_GLAZED_TERRACOTTA).setDisplayName("§aCost "+ accessPlayerData(playerUUID, "ClickerPrestigeCost") + "★");
+        return new ItemBuilder(Material.MAGENTA_GLAZED_TERRACOTTA).setDisplayName("§aCost "+ accessPlayerData(playerUUID, "GenerosityPrestigeCost") + "★");
     }
 
     @Override
     public void handleClick(@NotNull ClickType clickType, @NotNull Player player, @NotNull InventoryClickEvent event) {
-        int Level = (int) accessPlayerData(player.getUniqueId(),"ClickerPrestigeLevel");
+        int Level = (int) accessPlayerData(player.getUniqueId(),"GenerosityPrestigeLevel");
         int PrestigePoints = (int) accessPlayerData(player.getUniqueId(),"prestigePoints");
-        int Cost = (Level + 1) * 2;
-        storePlayerData(player.getUniqueId(), "ClickerPrestigeCost",  Cost);
+        int Cost = (Level + 1) * 3;
+        storePlayerData(player.getUniqueId(), "GenerosityPrestigeCost",  Cost);
         if (clickType.isLeftClick()) {
            if (PrestigePoints >= Cost && Level != 500) {
-               storePlayerData(player.getUniqueId(), "ClickerPrestigeLevel", Level + 1);
+               storePlayerData(player.getUniqueId(), "GenerosityPrestigeLevel", Level + 1);
                storePlayerData(player.getUniqueId(), "prestigePoints", PrestigePoints - Cost);
-               storePlayerData(player.getUniqueId(), "ClickerPrestigeCost",  Cost);
-               ClickerUpgradeItem.window.changeTitle("Prestige Shop | " + accessPlayerData(player.getUniqueId(), "prestigePoints") + "★");
+               Cost = (Level + 1) * 3;
+               storePlayerData(player.getUniqueId(), "GenerosityPrestigeCost",  Cost);
+               GenerosityUpgradeItem.window.changeTitle("Prestige Shop | " + accessPlayerData(player.getUniqueId(), "prestigePoints") + "★");
                PrestigeShopItem.window.changeTitle("Prestige Shop | " + accessPlayerData(player.getUniqueId(), "prestigePoints") + "★");
+               player.playSound(player, Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 10f, 0f);
            }
         }
         notifyWindows(); // this will update the ItemStack that is displayed to the player

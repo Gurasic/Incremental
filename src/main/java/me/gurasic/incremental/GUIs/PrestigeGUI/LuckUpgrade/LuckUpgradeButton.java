@@ -4,6 +4,7 @@ import me.gurasic.incremental.GUIs.PrestigeGUI.ClickerUpgrade.ClickerUpgradeItem
 import me.gurasic.incremental.GUIs.PrestigeGUI.PrestigeShopItem;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
@@ -26,22 +27,24 @@ public class LuckUpgradeButton extends AbstractItem {
     }
     @Override
     public ItemProvider getItemProvider() {
-        return new ItemBuilder(Material.MAGENTA_GLAZED_TERRACOTTA).setDisplayName("§aCost "+ accessPlayerData(playerUUID, "GenerosityPrestigeCost") + "★");
+        return new ItemBuilder(Material.MAGENTA_GLAZED_TERRACOTTA).setDisplayName("§aCost "+ accessPlayerData(playerUUID, "LuckPrestigeCost") + "★");
     }
 
     @Override
     public void handleClick(@NotNull ClickType clickType, @NotNull Player player, @NotNull InventoryClickEvent event) {
-        int Level = (int) accessPlayerData(player.getUniqueId(),"GenerosityPrestigeLevel");
+        int Level = (int) accessPlayerData(player.getUniqueId(),"LuckPrestigeLevel");
         int PrestigePoints = (int) accessPlayerData(player.getUniqueId(),"prestigePoints");
-        int Cost = (Level + 1) * 3;
-        storePlayerData(player.getUniqueId(), "GenerosityPrestigeCost",  Cost);
+        int Cost = (Level + 1) * 50;
+        storePlayerData(player.getUniqueId(), "LuckPrestigeCost",  Cost);
         if (clickType.isLeftClick()) {
-           if (PrestigePoints >= Cost && Level != 500) {
-               storePlayerData(player.getUniqueId(), "GenerosityPrestigeLevel", Level + 1);
+           if (PrestigePoints >= Cost && Level != 40) {
+               storePlayerData(player.getUniqueId(), "LuckPrestigeLevel", Level + 1);
                storePlayerData(player.getUniqueId(), "prestigePoints", PrestigePoints - Cost);
-               storePlayerData(player.getUniqueId(), "GenerosityPrestigeCost",  Cost);
-               ClickerUpgradeItem.window.changeTitle("Prestige Shop | " + accessPlayerData(player.getUniqueId(), "prestigePoints") + "★");
+               Cost = (Level + 1) * 50;
+               storePlayerData(player.getUniqueId(), "LuckPrestigeCost",  Cost);
+               LuckUpgradeItem.window.changeTitle("Prestige Shop | " + accessPlayerData(player.getUniqueId(), "prestigePoints") + "★");
                PrestigeShopItem.window.changeTitle("Prestige Shop | " + accessPlayerData(player.getUniqueId(), "prestigePoints") + "★");
+               player.playSound(player, Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 10f, 0f);
            }
         }
         notifyWindows(); // this will update the ItemStack that is displayed to the player

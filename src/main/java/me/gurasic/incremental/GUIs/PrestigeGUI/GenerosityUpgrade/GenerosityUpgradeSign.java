@@ -24,7 +24,7 @@ public class GenerosityUpgradeSign extends AutoUpdateItem {
     }
     @Override
     public ItemProvider getItemProvider() {
-        return new ItemBuilder(Material.OAK_SIGN).setDisplayName("§bLevel " +accessPlayerData(playerUUID, "ClickerPrestigeLevel")+"/500");
+        return new ItemBuilder(Material.OAK_SIGN).setDisplayName("§bLevel " +accessPlayerData(playerUUID, "GenerosityPrestigeLevel")+"/500");
     }
 
     @Override

@@ -29,7 +29,7 @@ public class Healthy extends AbstractItem {
     }
     @Override
     public ItemProvider getItemProvider() {
-        if ((boolean) accessPlayerData(playerUUID, "FleetFoot")) {
+        if ((boolean) accessPlayerData(playerUUID, "Healthy")) {
             return new ItemBuilder(Material.WHITE_STAINED_GLASS_PANE)
                     .setDisplayName("§eHealthy §65☽")
                     .addLoreLines("§7You get an extra §c2❤")
@@ -49,8 +49,8 @@ public class Healthy extends AbstractItem {
     public void handleClick(@NotNull ClickType clickType, @NotNull Player player, @NotNull InventoryClickEvent inventoryClickEvent) {
         int SP =  (int) accessPlayerData(playerUUID, "SuperPrestigePoints");
         if (clickType.isLeftClick()) {
-            if (SP >= 5 && (boolean) accessPlayerData(playerUUID, "Blind_Rage")) {
-                storePlayerData(playerUUID, "FleetFoot", true);
+            if (SP >= 5 && (boolean) accessPlayerData(playerUUID, "Better_Blocks")) {
+                storePlayerData(playerUUID, "Healthy", true);
                 storePlayerData(playerUUID, "SuperPrestigePoints", SP - 5);
                 SuperPrestigeItem.window.changeTitle("Super Prestige Shop | " + accessPlayerData(player.getUniqueId(), "SuperPrestigePoints") + "☽");
                 Scoreboard scoreboard = Bukkit.getScoreboardManager().getMainScoreboard();

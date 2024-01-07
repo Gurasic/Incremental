@@ -29,22 +29,20 @@ public class Hasty_Hands extends AbstractItem {
     }
     @Override
     public ItemProvider getItemProvider() {
-        if ((boolean) accessPlayerData(playerUUID, "QuickBuy")) {
+        if ((boolean) accessPlayerData(playerUUID, "Hasty_Hands")) {
             return new ItemBuilder(Material.WHITE_STAINED_GLASS_PANE)
-                    .setDisplayName("§eQuick Buy §65☽")
-                    .addLoreLines("§7you can sneak+right click upgrade to")
-                    .addLoreLines("§7Immediately spend as much as you can")
-                    .addLoreLines("§7on leveling")
+                    .setDisplayName("§eHasty Hands §610☽")
+                    .addLoreLines("§7you get §bSpeed III§7 for a ")
+                    .addLoreLines("§7Short duration upon §ePrestige")
                     .addItemFlags(ItemFlag.HIDE_ENCHANTS)
-                    .setAmount(7)
+                    .setAmount(8)
                     .addEnchantment(Enchantment.LURE, 1, true);
         } else {
             return new ItemBuilder(Material.WHITE_STAINED_GLASS_PANE)
-                    .setDisplayName("§eQuick Buy §65☽")
-                    .addLoreLines("§7you can sneak+right click upgrade to")
-                    .addLoreLines("§7Immediately spend as much as you can")
-                    .addLoreLines("§7on leveling")
-                    .setAmount(7)
+                    .setDisplayName("§eHasty Hands §610☽")
+                    .addLoreLines("§7you get §bSpeed III§7 for a ")
+                    .addLoreLines("§7Short duration upon §ePrestige")
+                    .setAmount(8)
                     .addItemFlags(ItemFlag.HIDE_ENCHANTS);
         }
     }
@@ -53,9 +51,9 @@ public class Hasty_Hands extends AbstractItem {
     public void handleClick(@NotNull ClickType clickType, @NotNull Player player, @NotNull InventoryClickEvent inventoryClickEvent) {
         int SP =  (int) accessPlayerData(playerUUID, "SuperPrestigePoints");
         if (clickType.isLeftClick()) {
-            if (SP >= 5 && (boolean) accessPlayerData(playerUUID, "FleetFoot")) {
-                storePlayerData(playerUUID, "QuickBuy", true);
-                storePlayerData(playerUUID, "SuperPrestigePoints", SP - 5);
+            if (SP >= 10 && (boolean) accessPlayerData(playerUUID, "Healthy")) {
+                storePlayerData(playerUUID, "Hasty_Hands", true);
+                storePlayerData(playerUUID, "SuperPrestigePoints", SP - 10);
                 SuperPrestigeItem.window.changeTitle("Super Prestige Shop | " + accessPlayerData(player.getUniqueId(), "SuperPrestigePoints") + "☽");
                 Scoreboard scoreboard = Bukkit.getScoreboardManager().getMainScoreboard();
                 player.playSound(player, Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 10f,0f);

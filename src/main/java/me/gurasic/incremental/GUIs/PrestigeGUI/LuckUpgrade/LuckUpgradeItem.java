@@ -26,9 +26,8 @@ public class LuckUpgradeItem extends AbstractItem {
     public ItemProvider getItemProvider() {
         return new ItemBuilder(Material.GOLD_INGOT)
                 .setDisplayName("§6Luck")
-                .addLoreLines("§7Other players get more + from you")
-                .addLoreLines("§7and you get more + from other players")
-                .addLoreLines("§8+1 multiplier per level");
+                .addLoreLines("§7Increases how often you get +1 +1s")
+                .addLoreLines("§8+1 bad luck protection per level");
     }
 
     @Override
@@ -44,7 +43,7 @@ public class LuckUpgradeItem extends AbstractItem {
                 .addIngredient('4', new LuckUpgradeSign(1, new Supplier<ItemProvider>() {
                     @Override
                     public ItemProvider get() {
-                        return new ItemBuilder(Material.OAK_SIGN).setDisplayName("§bLevel " +accessPlayerData(player.getUniqueId(), "GenerosityPrestigeLevel")+"/500");
+                        return new ItemBuilder(Material.OAK_SIGN).setDisplayName("§bLevel " +accessPlayerData(player.getUniqueId(), "LuckPrestigeLevel")+"/40");
                     }
                 }, player.getUniqueId()))
                 .addIngredient('5', new LuckUpgradeButton(player.getUniqueId()))

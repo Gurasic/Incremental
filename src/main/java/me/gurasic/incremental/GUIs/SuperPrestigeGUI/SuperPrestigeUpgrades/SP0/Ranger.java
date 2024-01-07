@@ -1,4 +1,4 @@
-package me.gurasic.incremental.GUIs.SuperPrestigeGUI.SuperPrestigeUpgrades;
+package me.gurasic.incremental.GUIs.SuperPrestigeGUI.SuperPrestigeUpgrades.SP0;
 
 import me.gurasic.incremental.GUIs.SuperPrestigeGUI.SuperPrestigeItem;
 import org.bukkit.Bukkit;

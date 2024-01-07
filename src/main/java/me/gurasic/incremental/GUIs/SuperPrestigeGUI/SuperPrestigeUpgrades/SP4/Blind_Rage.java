@@ -23,23 +23,22 @@ import java.util.UUID;
 public class Blind_Rage extends AbstractItem {
 
     private UUID playerUUID;
-
     public Blind_Rage(UUID playerUUID) {
         this.playerUUID = playerUUID;
     }
     @Override
     public ItemProvider getItemProvider() {
-        if ((boolean) accessPlayerData(playerUUID, "Fast_Pass")) {
+        if ((boolean) accessPlayerData(playerUUID, "Blind_Rage")) {
             return new ItemBuilder(Material.WHITE_STAINED_GLASS_PANE)
-                    .setDisplayName("§eFast Pass §65☽")
-                    .addLoreLines("§7You can skip to level §661§7 each prestige")
+                    .setDisplayName("§eBlind Rage §65☽")
+                    .addLoreLines("§7Get temporary §cstrength§7 on kill")
                     .addItemFlags(ItemFlag.HIDE_ENCHANTS)
                     .setAmount(5)
                     .addEnchantment(Enchantment.LURE, 1, true);
         } else {
             return new ItemBuilder(Material.WHITE_STAINED_GLASS_PANE)
-                    .setDisplayName("§eFast Pass §65☽")
-                    .addLoreLines("§7You can skip to level §661§7 each prestige")
+                    .setDisplayName("§eBlind Rage §65☽")
+                    .addLoreLines("§7Get temporary §cstrength§7 on kill")
                     .setAmount(5)
                     .addItemFlags(ItemFlag.HIDE_ENCHANTS);
         }
@@ -49,9 +48,9 @@ public class Blind_Rage extends AbstractItem {
     public void handleClick(@NotNull ClickType clickType, @NotNull Player player, @NotNull InventoryClickEvent inventoryClickEvent) {
         int SP =  (int) accessPlayerData(playerUUID, "SuperPrestigePoints");
         if (clickType.isLeftClick()) {
-            if (SP >= 4 && (boolean) accessPlayerData(playerUUID, "Crushing_Blows")) {
-                storePlayerData(playerUUID, "Fast_Pass", true);
-                storePlayerData(playerUUID, "SuperPrestigePoints", SP - 4);
+            if (SP >= 5 && (boolean) accessPlayerData(playerUUID, "Crushing_Blows")) {
+                storePlayerData(playerUUID, "Blind_Rage", true);
+                storePlayerData(playerUUID, "SuperPrestigePoints", SP - 5);
                 SuperPrestigeItem.window.changeTitle("Super Prestige Shop | " + accessPlayerData(player.getUniqueId(), "SuperPrestigePoints") + "☽");
                 Scoreboard scoreboard = Bukkit.getScoreboardManager().getMainScoreboard();
                 player.playSound(player, Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 10f,0f);

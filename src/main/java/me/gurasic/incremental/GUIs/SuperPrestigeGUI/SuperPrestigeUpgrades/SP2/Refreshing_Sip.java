@@ -29,17 +29,17 @@ public class Refreshing_Sip extends AbstractItem {
     }
     @Override
     public ItemProvider getItemProvider() {
-        if ((boolean) accessPlayerData(playerUUID, "Well_Feed")) {
+        if ((boolean) accessPlayerData(playerUUID, "Refreshing_Sip")) {
             return new ItemBuilder(Material.WHITE_STAINED_GLASS_PANE)
-                    .setDisplayName("§eWell Fed Day §62☽")
-                    .addLoreLines("§7You get regeneration upon eating a steak")
+                    .setDisplayName("§eRefreshing Sip §63☽")
+                    .addLoreLines("§7Heal §c2❤§7 on kill ")
                     .addItemFlags(ItemFlag.HIDE_ENCHANTS)
                     .setAmount(3)
                     .addEnchantment(Enchantment.LURE, 1, true);
         } else {
             return new ItemBuilder(Material.WHITE_STAINED_GLASS_PANE)
-                    .setDisplayName("§eWell Fed Day §62☽")
-                    .addLoreLines("§7You get regeneration upon eating a steak")
+                    .setDisplayName("§eRefreshing Sip §63☽")
+                    .addLoreLines("§7Heal §c2❤§7 on kill ")
                     .setAmount(3)
                     .addItemFlags(ItemFlag.HIDE_ENCHANTS);
         }
@@ -49,8 +49,8 @@ public class Refreshing_Sip extends AbstractItem {
     public void handleClick(@NotNull ClickType clickType, @NotNull Player player, @NotNull InventoryClickEvent inventoryClickEvent) {
         int SP =  (int) accessPlayerData(playerUUID, "SuperPrestigePoints");
         if (clickType.isLeftClick()) {
-            if (SP >= 3) {
-                storePlayerData(playerUUID, "Well_Feed", true);
+            if (SP >= 3 && (boolean) accessPlayerData(playerUUID, "Out_For_Blood")) {
+                storePlayerData(playerUUID, "Refreshing_Sip", true);
                 storePlayerData(playerUUID, "SuperPrestigePoints", SP - 3);
                 SuperPrestigeItem.window.changeTitle("Super Prestige Shop | " + accessPlayerData(player.getUniqueId(), "SuperPrestigePoints") + "☽");
                 Scoreboard scoreboard = Bukkit.getScoreboardManager().getMainScoreboard();

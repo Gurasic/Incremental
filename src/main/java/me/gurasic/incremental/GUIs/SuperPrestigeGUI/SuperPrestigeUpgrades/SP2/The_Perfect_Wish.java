@@ -29,17 +29,17 @@ public class The_Perfect_Wish extends AbstractItem {
     }
     @Override
     public ItemProvider getItemProvider() {
-        if ((boolean) accessPlayerData(playerUUID, "Refreshing_Sip")) {
+        if ((boolean) accessPlayerData(playerUUID, "The_Perfect_Wish")) {
             return new ItemBuilder(Material.WHITE_STAINED_GLASS_PANE)
-                    .setDisplayName("§eRefreshing Sip §63☽")
-                    .addLoreLines("§7Heal §c2❤§7 on kill ")
+                    .setDisplayName("§eThe Perfect Wish §63☽")
+                    .addLoreLines("§7You get an extra §d25★§7 when you prestige")
                     .addItemFlags(ItemFlag.HIDE_ENCHANTS)
                     .setAmount(3)
                     .addEnchantment(Enchantment.LURE, 1, true);
         } else {
             return new ItemBuilder(Material.WHITE_STAINED_GLASS_PANE)
-                    .setDisplayName("§eRefreshing Sip §63☽")
-                    .addLoreLines("§7Heal §c2❤§7 on kill ")
+                    .setDisplayName("§eThe Perfect Wish §63☽")
+                    .addLoreLines("§7You get an extra §d25★§7 when you prestige")
                     .setAmount(3)
                     .addItemFlags(ItemFlag.HIDE_ENCHANTS);
         }
@@ -49,8 +49,8 @@ public class The_Perfect_Wish extends AbstractItem {
     public void handleClick(@NotNull ClickType clickType, @NotNull Player player, @NotNull InventoryClickEvent inventoryClickEvent) {
         int SP =  (int) accessPlayerData(playerUUID, "SuperPrestigePoints");
         if (clickType.isLeftClick()) {
-            if (SP >= 3) {
-                storePlayerData(playerUUID, "Refreshing_Sip", true);
+            if (SP >= 3 && (boolean) accessPlayerData(playerUUID, "Lucky_day")) {
+                storePlayerData(playerUUID, "The_Perfect_Wish", true);
                 storePlayerData(playerUUID, "SuperPrestigePoints", SP - 3);
                 SuperPrestigeItem.window.changeTitle("Super Prestige Shop | " + accessPlayerData(player.getUniqueId(), "SuperPrestigePoints") + "☽");
                 Scoreboard scoreboard = Bukkit.getScoreboardManager().getMainScoreboard();

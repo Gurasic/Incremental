@@ -30,21 +30,17 @@ public class Out_For_Blood extends AbstractItem {
     }
     @Override
     public ItemProvider getItemProvider() {
-        if ((boolean) accessPlayerData(playerUUID, "Good_Will")) {
+        if ((boolean) accessPlayerData(playerUUID, "Out_For_Blood")) {
             return new ItemBuilder(Material.WHITE_STAINED_GLASS_PANE)
-                    .setDisplayName("§eGood Will §62☽")
-                    .addLoreLines("§7You no longer count towards the players")
-                    .addLoreLines("§7on the §egold block§7, but you can profit from it,")
-                    .addLoreLines("§7And receive a special prefix next to your name")
+                    .setDisplayName("§eOut For Blood §62☽")
+                    .addLoreLines("§7You get more §a+1§7 from kills")
                     .addItemFlags(ItemFlag.HIDE_ENCHANTS)
                     .setAmount(2)
                     .addEnchantment(Enchantment.LURE, 1, true);
         } else {
             return new ItemBuilder(Material.WHITE_STAINED_GLASS_PANE)
-                    .setDisplayName("§eGood Will §62☽")
-                    .addLoreLines("§7You no longer count towards the players")
-                    .addLoreLines("§7on the §egold block§7, but you can profit from it,")
-                    .addLoreLines("§7And receive a special prefix next to your name")
+                    .setDisplayName("§eOut For Blood §62☽")
+                    .addLoreLines("§7You get more §a+1§7 from kills")
                     .setAmount(2)
                     .addItemFlags(ItemFlag.HIDE_ENCHANTS);
         }
@@ -54,17 +50,11 @@ public class Out_For_Blood extends AbstractItem {
     public void handleClick(@NotNull ClickType clickType, @NotNull Player player, @NotNull InventoryClickEvent inventoryClickEvent) {
         int SP =  (int) accessPlayerData(playerUUID, "SuperPrestigePoints");
         if (clickType.isLeftClick()) {
-            if (SP >= 2) {
-                storePlayerData(playerUUID, "Good_Will", true);
+            if (SP >= 2 && (boolean) accessPlayerData(playerUUID, "Cleaning_Service")) {
+                storePlayerData(playerUUID, "Out_For_Blood", true);
                 storePlayerData(playerUUID, "SuperPrestigePoints", SP - 2);
                 SuperPrestigeItem.window.changeTitle("Super Prestige Shop | " + accessPlayerData(player.getUniqueId(), "SuperPrestigePoints") + "☽");
                 Scoreboard scoreboard = Bukkit.getScoreboardManager().getMainScoreboard();
-                Team team = scoreboard.getTeam("goodWill");
-                if (team == null) {
-                    team = scoreboard.registerNewTeam("goodWill");
-                }
-                team.setPrefix("§6⚛");
-                team.addEntry(player.getName());
                 player.playSound(player, Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 10f,0f);
                 player.playSound(player, Sound.ENTITY_GENERIC_EXPLODE, 10f,0f);
             }

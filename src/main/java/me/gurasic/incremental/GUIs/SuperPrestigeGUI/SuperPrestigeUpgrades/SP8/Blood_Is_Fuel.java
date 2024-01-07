@@ -29,17 +29,17 @@ public class Blood_Is_Fuel extends AbstractItem {
     }
     @Override
     public ItemProvider getItemProvider() {
-        if ((boolean) accessPlayerData(playerUUID, "Master_Ranger")) {
+        if ((boolean) accessPlayerData(playerUUID, "Blood_Is_Fuel")) {
             return new ItemBuilder(Material.WHITE_STAINED_GLASS_PANE)
-                    .setDisplayName("§eMaster_Ranger §610☽")
-                    .addLoreLines("§7Your bow is 1 level of power higher")
+                    .setDisplayName("§eBlood Is Fuel §610☽")
+                    .addLoreLines("§7Get Temporary §dRegeneration§7 on kill")
                     .addItemFlags(ItemFlag.HIDE_ENCHANTS)
                     .setAmount(9)
                     .addEnchantment(Enchantment.LURE, 1, true);
         } else {
             return new ItemBuilder(Material.WHITE_STAINED_GLASS_PANE)
-                    .setDisplayName("§eMaster_Ranger §610☽")
-                    .addLoreLines("§7Your bow is 1 level of power higher")
+                    .setDisplayName("§eBlood Is Fuel §610☽")
+                    .addLoreLines("§7Get Temporary §dRegeneration§7 on kill")
                     .setAmount(9)
                     .addItemFlags(ItemFlag.HIDE_ENCHANTS);
         }
@@ -49,8 +49,8 @@ public class Blood_Is_Fuel extends AbstractItem {
     public void handleClick(@NotNull ClickType clickType, @NotNull Player player, @NotNull InventoryClickEvent inventoryClickEvent) {
         int SP =  (int) accessPlayerData(playerUUID, "SuperPrestigePoints");
         if (clickType.isLeftClick()) {
-            if (SP >= 10 && (boolean) accessPlayerData(playerUUID, "Hasty_Hands")) {
-                storePlayerData(playerUUID, "Master_Ranger", true);
+            if (SP >= 10 && (boolean) accessPlayerData(playerUUID, "Serial_Killer")) {
+                storePlayerData(playerUUID, "Blood_Is_Fuel", true);
                 storePlayerData(playerUUID, "SuperPrestigePoints", SP - 10);
                 SuperPrestigeItem.window.changeTitle("Super Prestige Shop | " + accessPlayerData(player.getUniqueId(), "SuperPrestigePoints") + "☽");
                 Scoreboard scoreboard = Bukkit.getScoreboardManager().getMainScoreboard();

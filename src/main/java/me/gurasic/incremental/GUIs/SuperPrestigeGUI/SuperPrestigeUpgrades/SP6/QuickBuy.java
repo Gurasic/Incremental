@@ -29,17 +29,21 @@ public class QuickBuy extends AbstractItem {
     }
     @Override
     public ItemProvider getItemProvider() {
-        if ((boolean) accessPlayerData(playerUUID, "Adrenaline")) {
+        if ((boolean) accessPlayerData(playerUUID, "QuickBuy")) {
             return new ItemBuilder(Material.WHITE_STAINED_GLASS_PANE)
-                    .setDisplayName("§eAdrenaline §65☽")
-                    .addLoreLines("§7Get temporary §bSpeed II§7 on kill")
+                    .setDisplayName("§eQuick Buy §65☽")
+                    .addLoreLines("§7you can sneak+right click upgrade to")
+                    .addLoreLines("§7Immediately spend as much as you can")
+                    .addLoreLines("§7on leveling")
                     .addItemFlags(ItemFlag.HIDE_ENCHANTS)
                     .setAmount(7)
                     .addEnchantment(Enchantment.LURE, 1, true);
         } else {
             return new ItemBuilder(Material.WHITE_STAINED_GLASS_PANE)
-                    .setDisplayName("§eHealthy §65☽")
-                    .addLoreLines("§7You get an extra §c2❤")
+                    .setDisplayName("§eQuick Buy §65☽")
+                    .addLoreLines("§7you can sneak+right click upgrade to")
+                    .addLoreLines("§7Immediately spend as much as you can")
+                    .addLoreLines("§7on leveling")
                     .setAmount(7)
                     .addItemFlags(ItemFlag.HIDE_ENCHANTS);
         }
@@ -49,8 +53,8 @@ public class QuickBuy extends AbstractItem {
     public void handleClick(@NotNull ClickType clickType, @NotNull Player player, @NotNull InventoryClickEvent inventoryClickEvent) {
         int SP =  (int) accessPlayerData(playerUUID, "SuperPrestigePoints");
         if (clickType.isLeftClick()) {
-            if (SP >= 5 && (boolean) accessPlayerData(playerUUID, "Tank")) {
-                storePlayerData(playerUUID, "Adrenaline", true);
+            if (SP >= 5 && (boolean) accessPlayerData(playerUUID, "FleetFoot")) {
+                storePlayerData(playerUUID, "QuickBuy", true);
                 storePlayerData(playerUUID, "SuperPrestigePoints", SP - 5);
                 SuperPrestigeItem.window.changeTitle("Super Prestige Shop | " + accessPlayerData(player.getUniqueId(), "SuperPrestigePoints") + "☽");
                 Scoreboard scoreboard = Bukkit.getScoreboardManager().getMainScoreboard();

@@ -29,18 +29,18 @@ public class Tank extends AbstractItem {
     }
     @Override
     public ItemProvider getItemProvider() {
-        if ((boolean) accessPlayerData(playerUUID, "Better_Blocks")) {
+        if ((boolean) accessPlayerData(playerUUID, "Tank")) {
             return new ItemBuilder(Material.WHITE_STAINED_GLASS_PANE)
-                    .setDisplayName("§eBetter_Blocks §65☽")
-                    .addLoreLines("§eGold§7 and §bDiamond§7 Blocks Provide an additional §a3x§7 modifier")
+                    .setDisplayName("§eTank §65☽")
+                    .addLoreLines("§7Get §3Resistance§7 When hit")
                     .addItemFlags(ItemFlag.HIDE_ENCHANTS)
-                    .setAmount(5)
+                    .setAmount(6)
                     .addEnchantment(Enchantment.LURE, 1, true);
         } else {
             return new ItemBuilder(Material.WHITE_STAINED_GLASS_PANE)
-                    .setDisplayName("§eBetter_Blocks §65☽")
-                    .addLoreLines("§eGold§7 and §bDiamond§7 Blocks Provide an additional §a3x§7 modifier")
-                    .setAmount(5)
+                    .setDisplayName("§eTank §65☽")
+                    .addLoreLines("§7Get §3Resistance§7 When hit")
+                    .setAmount(6)
                     .addItemFlags(ItemFlag.HIDE_ENCHANTS);
         }
     }
@@ -49,8 +49,8 @@ public class Tank extends AbstractItem {
     public void handleClick(@NotNull ClickType clickType, @NotNull Player player, @NotNull InventoryClickEvent inventoryClickEvent) {
         int SP =  (int) accessPlayerData(playerUUID, "SuperPrestigePoints");
         if (clickType.isLeftClick()) {
-            if (SP >= 5 && (boolean) accessPlayerData(playerUUID, "Fast_Pass")) {
-                storePlayerData(playerUUID, "Better_Blocks", true);
+            if (SP >= 5 && (boolean) accessPlayerData(playerUUID, "Clover_Blades")) {
+                storePlayerData(playerUUID, "Tank", true);
                 storePlayerData(playerUUID, "SuperPrestigePoints", SP - 5);
                 SuperPrestigeItem.window.changeTitle("Super Prestige Shop | " + accessPlayerData(player.getUniqueId(), "SuperPrestigePoints") + "☽");
                 Scoreboard scoreboard = Bukkit.getScoreboardManager().getMainScoreboard();

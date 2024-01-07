@@ -29,17 +29,17 @@ public class Lucky_Day extends AbstractItem {
     }
     @Override
     public ItemProvider getItemProvider() {
-        if ((boolean) accessPlayerData(playerUUID, "Out_For_Blood")) {
+        if ((boolean) accessPlayerData(playerUUID, "Lucky_day")) {
             return new ItemBuilder(Material.WHITE_STAINED_GLASS_PANE)
-                    .setDisplayName("§eOut For Blood §62☽")
-                    .addLoreLines("§7You get more +1 from kills")
+                    .setDisplayName("§eLucky Day §62☽")
+                    .addLoreLines("§7You get an extra §d2☽§7 when u super prestige")
                     .addItemFlags(ItemFlag.HIDE_ENCHANTS)
                     .setAmount(2)
                     .addEnchantment(Enchantment.LURE, 1, true);
         } else {
             return new ItemBuilder(Material.WHITE_STAINED_GLASS_PANE)
-                    .setDisplayName("§eOut For Blood §62☽")
-                    .addLoreLines("§7You get more +1 from kills")
+                    .setDisplayName("§eLucky Day §62☽")
+                    .addLoreLines("§7You get an extra §d2☽§7 when u super prestige")
                     .setAmount(2)
                     .addItemFlags(ItemFlag.HIDE_ENCHANTS);
         }
@@ -49,8 +49,8 @@ public class Lucky_Day extends AbstractItem {
     public void handleClick(@NotNull ClickType clickType, @NotNull Player player, @NotNull InventoryClickEvent inventoryClickEvent) {
         int SP =  (int) accessPlayerData(playerUUID, "SuperPrestigePoints");
         if (clickType.isLeftClick()) {
-            if (SP >= 2) {
-                storePlayerData(playerUUID, "Out_For_Blood", true);
+            if (SP >= 2 && (boolean) accessPlayerData(playerUUID, "Booster")) {
+                storePlayerData(playerUUID, "Lucky_day", true);
                 storePlayerData(playerUUID, "SuperPrestigePoints", SP - 2);
                 SuperPrestigeItem.window.changeTitle("Super Prestige Shop | " + accessPlayerData(player.getUniqueId(), "SuperPrestigePoints") + "☽");
                 Scoreboard scoreboard = Bukkit.getScoreboardManager().getMainScoreboard();

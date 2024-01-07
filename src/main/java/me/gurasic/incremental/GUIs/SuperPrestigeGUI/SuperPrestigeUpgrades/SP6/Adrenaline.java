@@ -29,17 +29,17 @@ public class Adrenaline extends AbstractItem {
     }
     @Override
     public ItemProvider getItemProvider() {
-        if ((boolean) accessPlayerData(playerUUID, "Healthy")) {
+        if ((boolean) accessPlayerData(playerUUID, "Adrenaline")) {
             return new ItemBuilder(Material.WHITE_STAINED_GLASS_PANE)
-                    .setDisplayName("§eHealthy §65☽")
-                    .addLoreLines("§7You get an extra §c2❤")
+                    .setDisplayName("§eAdrenaline §65☽")
+                    .addLoreLines("§7Get temporary §bSpeed II§7 on kill")
                     .addItemFlags(ItemFlag.HIDE_ENCHANTS)
                     .setAmount(7)
                     .addEnchantment(Enchantment.LURE, 1, true);
         } else {
             return new ItemBuilder(Material.WHITE_STAINED_GLASS_PANE)
-                    .setDisplayName("§eHealthy §65☽")
-                    .addLoreLines("§7You get an extra §c2❤")
+                    .setDisplayName("§eAdrenaline §65☽")
+                    .addLoreLines("§7Get temporary §bSpeed II§7 on kill")
                     .setAmount(7)
                     .addItemFlags(ItemFlag.HIDE_ENCHANTS);
         }
@@ -49,8 +49,8 @@ public class Adrenaline extends AbstractItem {
     public void handleClick(@NotNull ClickType clickType, @NotNull Player player, @NotNull InventoryClickEvent inventoryClickEvent) {
         int SP =  (int) accessPlayerData(playerUUID, "SuperPrestigePoints");
         if (clickType.isLeftClick()) {
-            if (SP >= 5 && (boolean) accessPlayerData(playerUUID, "Better_Blocks")) {
-                storePlayerData(playerUUID, "Healthy", true);
+            if (SP >= 5 && (boolean) accessPlayerData(playerUUID, "Tank")) {
+                storePlayerData(playerUUID, "Adrenaline", true);
                 storePlayerData(playerUUID, "SuperPrestigePoints", SP - 5);
                 SuperPrestigeItem.window.changeTitle("Super Prestige Shop | " + accessPlayerData(player.getUniqueId(), "SuperPrestigePoints") + "☽");
                 Scoreboard scoreboard = Bukkit.getScoreboardManager().getMainScoreboard();

@@ -29,17 +29,17 @@ public class Incredible_Findings extends AbstractItem {
     }
     @Override
     public ItemProvider getItemProvider() {
-        if ((boolean) accessPlayerData(playerUUID, "Blood_Is_Fuel")) {
+        if ((boolean) accessPlayerData(playerUUID, "Incredible_Findings")) {
             return new ItemBuilder(Material.WHITE_STAINED_GLASS_PANE)
-                    .setDisplayName("§eBlood Is Fuel §610☽")
-                    .addLoreLines("§7Get Temporary §dRegeneration§7 on kill")
+                    .setDisplayName("§eIncredible Findings §610☽")
+                    .addLoreLines("§7Higher chances for §6+1 +1s§7 on kill")
                     .addItemFlags(ItemFlag.HIDE_ENCHANTS)
                     .setAmount(9)
                     .addEnchantment(Enchantment.LURE, 1, true);
         } else {
             return new ItemBuilder(Material.WHITE_STAINED_GLASS_PANE)
-                    .setDisplayName("§eBlood Is Fuel §610☽")
-                    .addLoreLines("§7Get Temporary §dRegeneration§7 on kill")
+                    .setDisplayName("§eIncredible Findings §610☽")
+                    .addLoreLines("§7Higher chances for §6+1 +1s§7 on kill")
                     .setAmount(9)
                     .addItemFlags(ItemFlag.HIDE_ENCHANTS);
         }
@@ -49,8 +49,8 @@ public class Incredible_Findings extends AbstractItem {
     public void handleClick(@NotNull ClickType clickType, @NotNull Player player, @NotNull InventoryClickEvent inventoryClickEvent) {
         int SP =  (int) accessPlayerData(playerUUID, "SuperPrestigePoints");
         if (clickType.isLeftClick()) {
-            if (SP >= 10 && (boolean) accessPlayerData(playerUUID, "Serial_Killer")) {
-                storePlayerData(playerUUID, "Blood_Is_Fuel", true);
+            if (SP >= 10 && (boolean) accessPlayerData(playerUUID, "Clicking_Legend")) {
+                storePlayerData(playerUUID, "Incredible_Findings", true);
                 storePlayerData(playerUUID, "SuperPrestigePoints", SP - 10);
                 SuperPrestigeItem.window.changeTitle("Super Prestige Shop | " + accessPlayerData(player.getUniqueId(), "SuperPrestigePoints") + "☽");
                 Scoreboard scoreboard = Bukkit.getScoreboardManager().getMainScoreboard();

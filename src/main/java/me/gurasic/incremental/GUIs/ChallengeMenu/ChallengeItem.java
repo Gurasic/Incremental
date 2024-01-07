@@ -1,25 +1,39 @@
-package me.gurasic.incremental.GUIs.SuperPrestigeGUI.ChallengeMenu;
+package me.gurasic.incremental.GUIs.ChallengeMenu;
 
 import me.gurasic.incremental.GUIs.PrestigeGUI.ReturnItem;
 import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.inventory.ItemFlag;
 import org.jetbrains.annotations.NotNull;
 import xyz.xenondevs.invui.gui.Gui;
 import xyz.xenondevs.invui.item.ItemProvider;
 import xyz.xenondevs.invui.item.builder.ItemBuilder;
 import xyz.xenondevs.invui.item.impl.AbstractItem;
-import xyz.xenondevs.invui.item.impl.SimpleItem;
 import xyz.xenondevs.invui.window.Window;
+
+import static me.gurasic.incremental.GUIs.SuperPrestigeGUI.SuperPrestigeItem.HasSp;
 
 public class ChallengeItem extends AbstractItem {
 
 
-
+    public static boolean HasRebirth = false;
     @Override
     public ItemProvider getItemProvider() {
-        return new ItemBuilder(Material.SPIDER_EYE).setDisplayName("§n§4«Challenges»");
+        if(HasRebirth) {
+            return new ItemBuilder(Material.SPIDER_EYE).setDisplayName("§n§4«Challenges»");
+        }
+        else if(HasSp) {
+            return new ItemBuilder(Material.SPIDER_EYE).setDisplayName("§4§k123456789abc")
+                    .addLoreLines("§7Reach §cRebirth§7 to unlock this Tab");
+        }
+        else {
+            return new ItemBuilder(Material.GRAY_STAINED_GLASS_PANE)
+                    .setDisplayName(" ");
+
+        }
     }
     ItemProvider Sign = new ItemBuilder(Material.OAK_SIGN).setDisplayName("§n§4«Challenges»")
             .addLoreLines("§7Click a challenge to start it, a challenge will give")

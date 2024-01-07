@@ -1,5 +1,6 @@
 package me.gurasic.incremental.GUIs.RebirthGUI.RebirthUpgrades;
 
+import me.gurasic.incremental.GUIs.RebirthGUI.RebirthGUIItem;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -26,17 +27,19 @@ public class Prestige_Accelerator extends AbstractItem {
     }
     @Override
     public ItemProvider getItemProvider() {
-        if ((boolean) accessPlayerData(playerUUID, "Expertise")) {
-        return new ItemBuilder(Material.LIME_DYE).setDisplayName("§a+ Expertise §8| §c5♦")
-                .addLoreLines("§7Your clicker gives §a5x§7 the +1,")
-                .addLoreLines("§7and kills give §a3x§7 the +1")
+        if ((boolean) accessPlayerData(playerUUID, "Prestige_Accelerator")) {
+        return new ItemBuilder(Material.MAGENTA_GLAZED_TERRACOTTA).setDisplayName("§dPrestige Accelerator §8| §c5♦")
+                .addLoreLines("§7Upon prestige you get §e0§7 to §e2§7 extra")
+                .addLoreLines("§7Prestiges, but not the stars from them,")
+                .addLoreLines("§7You also get §a2x§7 the §d★")
                 .addItemFlags(ItemFlag.HIDE_ENCHANTS)
                 .addEnchantment(Enchantment.LURE, 1, true);
         }
         else {
-        return new ItemBuilder(Material.LIME_DYE).setDisplayName("§a+ Expertise §8| §c5♦")
-                .addLoreLines("§7Your clicker gives §a5x§7 the +1,")
-                .addLoreLines("§7and kills give §a3x§7 the +1");
+            return new ItemBuilder(Material.MAGENTA_GLAZED_TERRACOTTA).setDisplayName("§dPrestige Accelerator §8| §c5♦")
+                    .addLoreLines("§7Upon prestige you get §e0§7 to §e2§7 extra")
+                    .addLoreLines("§7Prestiges, but not the stars from them,")
+                    .addLoreLines("§7You also get §a2x§7 the §d★");
         }
     }
 
@@ -47,9 +50,10 @@ public class Prestige_Accelerator extends AbstractItem {
         if (clickType.isLeftClick()) {
             if (RebirthPoints >= Cost) {
                 storePlayerData(player.getUniqueId(), "Rebirth_Points", RebirthPoints - Cost);
-                storePlayerData(player.getUniqueId(), "Expertise", true);
+                storePlayerData(player.getUniqueId(), "Prestige_Accelerator", true);
                 player.playSound(player, Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 10f,0f);
                 player.playSound(player, Sound.ENTITY_GENERIC_EXPLODE, 10f,0f);
+                RebirthGUIItem.window.changeTitle("Rebirth Shop | " + accessPlayerData(player.getUniqueId(), "Rebirth_Points") + "♦");
             }
         }
         notifyWindows(); // this will update the ItemStack that is displayed to the player

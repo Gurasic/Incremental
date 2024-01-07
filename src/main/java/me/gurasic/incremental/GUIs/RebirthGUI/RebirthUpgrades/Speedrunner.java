@@ -1,5 +1,6 @@
 package me.gurasic.incremental.GUIs.RebirthGUI.RebirthUpgrades;
 
+import me.gurasic.incremental.GUIs.RebirthGUI.RebirthGUIItem;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -26,32 +27,31 @@ public class Speedrunner extends AbstractItem {
     }
     @Override
     public ItemProvider getItemProvider() {
-        if ((boolean) accessPlayerData(playerUUID, "Prestige_Accelerator")) {
-        return new ItemBuilder(Material.MAGENTA_GLAZED_TERRACOTTA).setDisplayName("§dPrestige Accelerator §8| §c5♦")
-                .addLoreLines("§7Upon prestige you get §e0§7 to §e2§7 extra")
-                .addLoreLines("§7Prestiges, but not the stars from them,")
-                .addLoreLines("§7You also get §a2x§7 the §d★")
+        if ((boolean) accessPlayerData(playerUUID, "Speedrunner")) {
+        return new ItemBuilder(Material.CLOCK).setDisplayName("§eSpeedrunner §8| §c10♦")
+                .addLoreLines("§7You get an extra superprestige, per superprestige")
+                .addLoreLines("§7But no moons from it")
                 .addItemFlags(ItemFlag.HIDE_ENCHANTS)
                 .addEnchantment(Enchantment.LURE, 1, true);
         }
         else {
-            return new ItemBuilder(Material.MAGENTA_GLAZED_TERRACOTTA).setDisplayName("§dPrestige Accelerator §8| §c5♦")
-                    .addLoreLines("§7Upon prestige you get §e0§7 to §e2§7 extra")
-                    .addLoreLines("§7Prestiges, but not the stars from them,")
-                    .addLoreLines("§7You also get §a2x§7 the §d★");
+            return new ItemBuilder(Material.CLOCK).setDisplayName("§eSpeedrunner §8| §c10♦")
+                    .addLoreLines("§7You get an extra superprestige, per superprestige")
+                    .addLoreLines("§7But no moons from it");
         }
     }
 
     @Override
     public void handleClick(@NotNull ClickType clickType, @NotNull Player player, @NotNull InventoryClickEvent inventoryClickEvent) {
         int RebirthPoints = (int) accessPlayerData(player.getUniqueId(), "Rebirth_Points");
-        int Cost = 5;
+        int Cost = 10;
         if (clickType.isLeftClick()) {
             if (RebirthPoints >= Cost) {
                 storePlayerData(player.getUniqueId(), "Rebirth_Points", RebirthPoints - Cost);
-                storePlayerData(player.getUniqueId(), "Prestige_Accelerator", true);
+                storePlayerData(player.getUniqueId(), "Speedrunner", true);
                 player.playSound(player, Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 10f,0f);
                 player.playSound(player, Sound.ENTITY_GENERIC_EXPLODE, 10f,0f);
+                RebirthGUIItem.window.changeTitle("Rebirth Shop | " + accessPlayerData(player.getUniqueId(), "Rebirth_Points") + "♦");
             }
         }
         notifyWindows(); // this will update the ItemStack that is displayed to the player

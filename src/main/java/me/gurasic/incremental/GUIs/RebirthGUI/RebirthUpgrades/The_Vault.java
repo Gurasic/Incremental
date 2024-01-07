@@ -27,17 +27,17 @@ public class The_Vault extends AbstractItem {
     }
     @Override
     public ItemProvider getItemProvider() {
-        if ((boolean) accessPlayerData(playerUUID, "Speedrunner")) {
-        return new ItemBuilder(Material.CLOCK).setDisplayName("§eSpeedrunner §8| §c10♦")
-                .addLoreLines("§7You get an extra superprestige, per superprestige")
-                .addLoreLines("§7But no moons from it")
+        if ((boolean) accessPlayerData(playerUUID, "The_Vault")) {
+        return new ItemBuilder(Material.IRON_BARS).setDisplayName("§3The Vault §8| §c5♦")
+                .addLoreLines("§7You start with §d1§7 prestige, §d1")
+                .addLoreLines("§7super prestige, §d4☽§7 and §d40★")
                 .addItemFlags(ItemFlag.HIDE_ENCHANTS)
                 .addEnchantment(Enchantment.LURE, 1, true);
         }
         else {
-            return new ItemBuilder(Material.CLOCK).setDisplayName("§eSpeedrunner §8| §c10♦")
-                    .addLoreLines("§7You get an extra superprestige, per superprestige")
-                    .addLoreLines("§7But no moons from it");
+            return new ItemBuilder(Material.IRON_BARS).setDisplayName("§3The Vault §8| §c5♦")
+                    .addLoreLines("§7You start with §d1§7 prestige, §d1")
+                    .addLoreLines("§7super prestige, §d4☽§7 and §d40★");
         }
     }
 
@@ -48,7 +48,7 @@ public class The_Vault extends AbstractItem {
         if (clickType.isLeftClick()) {
             if (RebirthPoints >= Cost) {
                 storePlayerData(player.getUniqueId(), "Rebirth_Points", RebirthPoints - Cost);
-                storePlayerData(player.getUniqueId(), "Speedrunner", true);
+                storePlayerData(player.getUniqueId(), "The_Vault", true);
                 player.playSound(player, Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 10f,0f);
                 player.playSound(player, Sound.ENTITY_GENERIC_EXPLODE, 10f,0f);
                 RebirthGUIItem.window.changeTitle("Rebirth Shop | " + accessPlayerData(player.getUniqueId(), "Rebirth_Points") + "♦");

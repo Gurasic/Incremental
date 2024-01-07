@@ -15,10 +15,21 @@ repositories {
         name = "sonatype"
         url = "https://oss.sonatype.org/content/groups/public/"
     }
+    maven {
+        url 'https://repo.xenondevs.xyz/releases'
+    }
+    maven {
+        url 'https://libraries.minecraft.net/'
+    }
+
+
 }
 
 dependencies {
-compileOnly "io.papermc.paper:paper-api:1.20.2-R0.1-SNAPSHOT"
+    compileOnly "io.papermc.paper:paper-api:1.20.2-R0.1-SNAPSHOT"
+    compileOnly 'com.mojang:authlib:1.5.21'
+    implementation "xyz.xenondevs.invui:invui:1.24"
+
 }
 
 def targetJavaVersion = 17

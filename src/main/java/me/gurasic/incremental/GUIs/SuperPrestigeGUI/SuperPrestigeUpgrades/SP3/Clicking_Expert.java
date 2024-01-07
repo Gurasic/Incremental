@@ -29,17 +29,17 @@ public class Clicking_Expert extends AbstractItem {
     }
     @Override
     public ItemProvider getItemProvider() {
-        if ((boolean) accessPlayerData(playerUUID, "Crushing_Blows")) {
+        if ((boolean) accessPlayerData(playerUUID, "Clicking_Expert")) {
             return new ItemBuilder(Material.WHITE_STAINED_GLASS_PANE)
-                    .setDisplayName("§eCrushing Blows §64☽")
-                    .addLoreLines("§7You get an axe that scales with level")
+                    .setDisplayName("§eClicking Expert §64☽")
+                    .addLoreLines("§7Your clicker gives §a2x§7 as much +1")
                     .addItemFlags(ItemFlag.HIDE_ENCHANTS)
                     .setAmount(4)
                     .addEnchantment(Enchantment.LURE, 1, true);
         } else {
             return new ItemBuilder(Material.WHITE_STAINED_GLASS_PANE)
-                    .setDisplayName("§eCrushing Blows §64☽")
-                    .addLoreLines("§7You get an axe that scales with level")
+                    .setDisplayName("§eClicking Expert §64☽")
+                    .addLoreLines("§7Your clicker gives §a2x§7 as much +1")
                     .setAmount(4)
                     .addItemFlags(ItemFlag.HIDE_ENCHANTS);
         }
@@ -49,8 +49,8 @@ public class Clicking_Expert extends AbstractItem {
     public void handleClick(@NotNull ClickType clickType, @NotNull Player player, @NotNull InventoryClickEvent inventoryClickEvent) {
         int SP =  (int) accessPlayerData(playerUUID, "SuperPrestigePoints");
         if (clickType.isLeftClick()) {
-            if (SP >= 4 && (boolean) accessPlayerData(playerUUID, "Well_Feed")) {
-                storePlayerData(playerUUID, "Crushing_Blows", true);
+            if (SP >= 4 && (boolean) accessPlayerData(playerUUID, "The_Perfect_Wish")) {
+                storePlayerData(playerUUID, "Clicking_Expert", true);
                 storePlayerData(playerUUID, "SuperPrestigePoints", SP - 4);
                 SuperPrestigeItem.window.changeTitle("Super Prestige Shop | " + accessPlayerData(player.getUniqueId(), "SuperPrestigePoints") + "☽");
                 Scoreboard scoreboard = Bukkit.getScoreboardManager().getMainScoreboard();

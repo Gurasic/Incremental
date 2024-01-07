@@ -29,18 +29,18 @@ public class Well_Feed extends AbstractItem {
     }
     @Override
     public ItemProvider getItemProvider() {
-        if ((boolean) accessPlayerData(playerUUID, "Lucky_day")) {
+        if ((boolean) accessPlayerData(playerUUID, "Well_Feed")) {
             return new ItemBuilder(Material.WHITE_STAINED_GLASS_PANE)
-                    .setDisplayName("§eLucky Day §62☽")
-                    .addLoreLines("§7You get an extra §d2☽§7 when u super prestige")
+                    .setDisplayName("§eWell Fed Day §63☽")
+                    .addLoreLines("§7You get regeneration upon eating a steak")
                     .addItemFlags(ItemFlag.HIDE_ENCHANTS)
-                    .setAmount(2)
+                    .setAmount(3)
                     .addEnchantment(Enchantment.LURE, 1, true);
         } else {
             return new ItemBuilder(Material.WHITE_STAINED_GLASS_PANE)
-                    .setDisplayName("§eLucky Day §62☽")
-                    .addLoreLines("§7You get an extra §d2☽§7 when u super prestige")
-                    .setAmount(2)
+                    .setDisplayName("§eWell Fed Day §63☽")
+                    .addLoreLines("§7You get regeneration upon eating a steak")
+                    .setAmount(3)
                     .addItemFlags(ItemFlag.HIDE_ENCHANTS);
         }
     }
@@ -49,9 +49,9 @@ public class Well_Feed extends AbstractItem {
     public void handleClick(@NotNull ClickType clickType, @NotNull Player player, @NotNull InventoryClickEvent inventoryClickEvent) {
         int SP =  (int) accessPlayerData(playerUUID, "SuperPrestigePoints");
         if (clickType.isLeftClick()) {
-            if (SP >= 2) {
-                storePlayerData(playerUUID, "Lucky_day", true);
-                storePlayerData(playerUUID, "SuperPrestigePoints", SP - 2);
+            if (SP >= 3 && (boolean) accessPlayerData(playerUUID, "Good_Will")) {
+                storePlayerData(playerUUID, "Well_Feed", true);
+                storePlayerData(playerUUID, "SuperPrestigePoints", SP - 3);
                 SuperPrestigeItem.window.changeTitle("Super Prestige Shop | " + accessPlayerData(player.getUniqueId(), "SuperPrestigePoints") + "☽");
                 Scoreboard scoreboard = Bukkit.getScoreboardManager().getMainScoreboard();
                 player.playSound(player, Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 10f,0f);

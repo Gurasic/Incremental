@@ -17,17 +17,17 @@ import java.io.File;
 import java.util.UUID;
 import java.util.function.Supplier;
 
-public class LuckUpgradeItem extends AbstractItem {
+public class DefenseUpgradeItem extends AbstractItem {
 
     public ItemProvider GrayGlass = new ItemBuilder(Material.GRAY_STAINED_GLASS_PANE)
             .setDisplayName(" ");
     public static Window window;
     @Override
     public ItemProvider getItemProvider() {
-        return new ItemBuilder(Material.GOLD_INGOT)
-                .setDisplayName("§6Luck")
-                .addLoreLines("§7Increases how often you get +1 +1s")
-                .addLoreLines("§8+1 bad luck protection per level");
+        return new ItemBuilder(Material.SHIELD)
+                .setDisplayName("§2Defense")
+                .addLoreLines("§7Increases your armor")
+                .addLoreLines("§8+1 per level");
     }
 
     @Override
@@ -40,13 +40,13 @@ public class LuckUpgradeItem extends AbstractItem {
                 .addIngredient('1', GrayGlass)
                 .addIngredient('2', new ReturnItem())
                 .addIngredient('3', getItemProvider())
-                .addIngredient('4', new LuckUpgradeSign(1, new Supplier<ItemProvider>() {
+                .addIngredient('4', new DefenseUpgradeSign(1, new Supplier<ItemProvider>() {
                     @Override
                     public ItemProvider get() {
                         return new ItemBuilder(Material.OAK_SIGN).setDisplayName("§bLevel " +accessPlayerData(player.getUniqueId(), "LuckPrestigeLevel")+"/40");
                     }
                 }, player.getUniqueId()))
-                .addIngredient('5', new LuckUpgradeButton(player.getUniqueId()))
+                .addIngredient('5', new DefenseUpgradeButton(player.getUniqueId()))
                 .build();
 
         window = Window.single()

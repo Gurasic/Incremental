@@ -29,18 +29,18 @@ public class FleetFoot extends AbstractItem {
     }
     @Override
     public ItemProvider getItemProvider() {
-        if ((boolean) accessPlayerData(playerUUID, "Tank")) {
+        if ((boolean) accessPlayerData(playerUUID, "FleetFoot")) {
             return new ItemBuilder(Material.WHITE_STAINED_GLASS_PANE)
-                    .setDisplayName("§eTank §65☽")
-                    .addLoreLines("§7Get §3Resistance§7 When hit")
+                    .setDisplayName("§eFleetFoot §65☽")
+                    .addLoreLines("§7You passively move 20% faster")
                     .addItemFlags(ItemFlag.HIDE_ENCHANTS)
-                    .setAmount(5)
+                    .setAmount(6)
                     .addEnchantment(Enchantment.LURE, 1, true);
         } else {
             return new ItemBuilder(Material.WHITE_STAINED_GLASS_PANE)
-                    .setDisplayName("§eBetter_Blocks §65☽")
-                    .addLoreLines("§eGold§7 and §bDiamond§7 Blocks Provide an additional §a3x§7 modifier")
-                    .setAmount(5)
+                    .setDisplayName("§eFleetFoot §65☽")
+                    .addLoreLines("§7You passively move 20% faster")
+                    .setAmount(6)
                     .addItemFlags(ItemFlag.HIDE_ENCHANTS);
         }
     }
@@ -50,7 +50,7 @@ public class FleetFoot extends AbstractItem {
         int SP =  (int) accessPlayerData(playerUUID, "SuperPrestigePoints");
         if (clickType.isLeftClick()) {
             if (SP >= 5 && (boolean) accessPlayerData(playerUUID, "Blind_Rage")) {
-                storePlayerData(playerUUID, "Tank", true);
+                storePlayerData(playerUUID, "FleetFoot", true);
                 storePlayerData(playerUUID, "SuperPrestigePoints", SP - 5);
                 SuperPrestigeItem.window.changeTitle("Super Prestige Shop | " + accessPlayerData(player.getUniqueId(), "SuperPrestigePoints") + "☽");
                 Scoreboard scoreboard = Bukkit.getScoreboardManager().getMainScoreboard();

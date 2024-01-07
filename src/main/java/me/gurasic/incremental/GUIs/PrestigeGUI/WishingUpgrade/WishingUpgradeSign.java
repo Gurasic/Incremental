@@ -24,7 +24,7 @@ public class WishingUpgradeSign extends AutoUpdateItem {
     }
     @Override
     public ItemProvider getItemProvider() {
-        return new ItemBuilder(Material.OAK_SIGN).setDisplayName("§bLevel " +accessPlayerData(playerUUID, "PricesPrestigeLevel")+"/90");
+        return new ItemBuilder(Material.OAK_SIGN).setDisplayName("§bLevel " +accessPlayerData(playerUUID, "WishingPrestigeLevel")+"/500");
     }
 
     @Override
