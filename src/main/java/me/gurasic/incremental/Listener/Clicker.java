@@ -68,7 +68,7 @@ public class Clicker implements Listener {
 
             plugin.storePlayerData(player.getUniqueId(), "PlayerSpeedCapBool", false);
         }
-        Multi = (Multi + (ClickerPrestige * 3) * l) * Ex;
+        Multi = (Multi + (ClickerPrestige * 3) * l) * Ex; //e
         boolean hasGW = (boolean) plugin.accessPlayerData(playerId, "Good_Will");
         if (blockMaterial == Material.GOLD_BLOCK || blockMaterial == Material.DIAMOND_BLOCK) {
             UUID currentBlockPlayerId = blockPlayerMap.get(blockMaterial);
