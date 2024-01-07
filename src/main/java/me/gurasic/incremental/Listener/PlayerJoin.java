@@ -1,5 +1,6 @@
 package me.gurasic.incremental.Listener;
 
+import io.github.ad417.BreakInfinity.BigDouble;
 import me.gurasic.incremental.GUIs.ChallengeMenu.ChallengeItem;
 import me.gurasic.incremental.GUIs.SuperPrestigeGUI.SuperPrestigeItem;
 import me.gurasic.incremental.Incremental;
@@ -11,6 +12,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 
+import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -27,7 +29,7 @@ public class PlayerJoin implements Listener {
      plugin.createPlayerFile(player.getUniqueId());
      plugin.giveRainbowArmor(player);
      Map<String, Object> defaultValues = new HashMap<>();
-     defaultValues.put("pointCount", 0);
+     defaultValues.put("pointCount", new BigInteger("0"));
      defaultValues.put("multiCount", 1);
      defaultValues.put("playerLevel", 1);
      defaultValues.put("beforeCost", 1);
@@ -95,6 +97,8 @@ public class PlayerJoin implements Listener {
              plugin.storePlayerData(player.getUniqueId(), entry.getKey(), entry.getValue());
          }
      }
+
+     player.sendMessage(Component.text("1 = " + plugin.accessPlayerData(player.getUniqueId(), "BreakInfnity")));
      if ((int) plugin.accessPlayerData(player.getUniqueId(), "SuperPrestigeLevel") > 0
      || (int) plugin.accessPlayerData(player.getUniqueId(), "Rebirth_Level") > 0) {
          SuperPrestigeItem.HasSp = true;

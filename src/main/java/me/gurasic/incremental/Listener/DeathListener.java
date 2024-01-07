@@ -15,6 +15,7 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
 
+import java.math.BigInteger;
 import java.util.Objects;
 import java.util.Random;
 
@@ -36,7 +37,15 @@ public class DeathListener implements Listener {
                 int killerLuck = (int) plugin.accessPlayerData(killer.getUniqueId(), "LuckPrestigeLevel");
                 int killerUnluck = (int) plugin.accessPlayerData(killer.getUniqueId(), "Unluck");
                 int killerIncLvs = (int) plugin.accessPlayerData(killer.getUniqueId(), "IncLvs");
-                int killerPoints = (int) plugin.accessPlayerData(killer.getUniqueId(), "pointCount");
+                Object pointCount = plugin.accessPlayerData(killer.getUniqueId(), "pointCount");
+                BigInteger killerPoints;
+                if (pointCount instanceof Integer) {
+                    killerPoints = BigInteger.valueOf(((Integer) pointCount).longValue());
+                } else if (pointCount instanceof BigInteger) {
+                    killerPoints = (BigInteger) pointCount;
+                } else {
+                    killerPoints = BigInteger.ZERO;
+                }
                 int killerLevel = (int) plugin.accessPlayerData(killer.getUniqueId(), "playerLevel");
                 int killerMulti = (int) plugin.accessPlayerData(killer.getUniqueId(), "multiCount");
                 int killerBC = (int) plugin.accessPlayerData(killer.getUniqueId(), "beforeCost");
@@ -71,7 +80,8 @@ public class DeathListener implements Listener {
                 }
                 int x = ((victimLevel*(killerLevel*(killerGenerosity+1))) * (2 * (victimGenerosity + 1)) * l) * Ex;
                 int y = random.nextInt(0,killerUnluck-killerLuck);
-                plugin.storePlayerData(killer.getUniqueId(), "pointCount",killerPoints + x);
+                BigInteger value = BigInteger.valueOf(x);
+                plugin.storePlayerData(killer.getUniqueId(), "pointCount",killerPoints.add(value));
 
                 if ((boolean) plugin.accessPlayerData(killer.getUniqueId(), "Refreshing_Sip")) {
                     double killerHealth = killer.getHealth();

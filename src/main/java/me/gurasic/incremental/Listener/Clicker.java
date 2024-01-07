@@ -18,6 +18,7 @@ import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -38,7 +39,17 @@ public class Clicker implements Listener {
         Player player = event.getPlayer();
         UUID playerId = player.getUniqueId();
         Material blockMaterial = player.getLocation().getBlock().getRelative(0, -1, 0).getType();
-        int Points = (int) plugin.accessPlayerData(playerId, "pointCount");
+        Object pointCount = plugin.accessPlayerData(playerId, "pointCount");
+        BigInteger Points;
+
+        if (pointCount instanceof Integer) {
+            Points = BigInteger.valueOf(((Integer) pointCount).longValue());
+        } else if (pointCount instanceof BigInteger) {
+            Points = (BigInteger) pointCount;
+        } else {
+            Points = BigInteger.ZERO;
+        }
+
         int Multi = (int) plugin.accessPlayerData(playerId, "multiCount");
         int ClickerPrestige = (int) plugin.accessPlayerData(playerId, "ClickerPrestigeLevel");
         int Level = (int) plugin.accessPlayerData(playerId, "playerLevel");
@@ -82,6 +93,7 @@ public class Clicker implements Listener {
                 Multi = ((Multi+10) * 2) * h;
             }
         }
+        BigInteger x = BigInteger.valueOf(Multi);
         if (event.getAction().toString().contains("RIGHT_CLICK") && event.getItem() != null && event.getItem().getType() == Material.LIME_DYE) {
             if ((boolean) plugin.accessPlayerData(playerId, "Fast_Pass") && Level < 61 && !fpu) {
                 ItemMeta FastpassMeta = FastPass.getItemMeta();
@@ -96,7 +108,7 @@ public class Clicker implements Listener {
             int playerCountOnBlock = getPlayerCountOnBlock(blockMaterial);
             int goodWillCountOnBlock = getGoodWillCountOnBlock(blockMaterial);
             if (playerCountOnBlock - goodWillCountOnBlock <= 1 || hasGW) {
-                Points = Points + Multi;
+                Points = Points.add(x);
                 player.sendActionBar(Component.text("[You Gained +"+ Multi +"]", TextColor.fromHexString("#636363")));
                 plugin.storePlayerData(playerId, "pointCount", Points);
                 player.playSound(player, Sound.BLOCK_WOODEN_BUTTON_CLICK_ON, 10f,0f);
