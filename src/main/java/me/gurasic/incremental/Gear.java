@@ -10,6 +10,7 @@ public class Gear {
     public ItemStack Sword2 = new ItemStack(Material.STONE_SWORD);
     public ItemStack Sword3 = new ItemStack(Material.IRON_SWORD);
     public ItemStack Sword4 = new ItemStack(Material.DIAMOND_SWORD);
+    public ItemStack Sword5 = new ItemStack(Material.NETHERITE_SWORD);
     public ItemStack Axe1 = new ItemStack(Material.WOODEN_AXE);
     public ItemStack Axe2 = new ItemStack(Material.STONE_AXE);
     public ItemStack Axe3 = new ItemStack(Material.IRON_AXE);
@@ -24,7 +25,7 @@ public class Gear {
     public ItemStack leather4 = new ItemStack(Material.LEATHER_BOOTS);
     public ItemStack chainmail1 = new ItemStack(Material.CHAINMAIL_HELMET);
     public ItemStack chainmail2 = new ItemStack(Material.CHAINMAIL_CHESTPLATE);
-    ItemStack chainmail3 = new ItemStack(Material.CHAINMAIL_LEGGINGS);
+    public ItemStack chainmail3 = new ItemStack(Material.CHAINMAIL_LEGGINGS);
     public ItemStack chainmail4 = new ItemStack(Material.CHAINMAIL_BOOTS);
     public ItemStack iron1 = new ItemStack(Material.IRON_HELMET);
     public ItemStack iron2 = new ItemStack(Material.IRON_CHESTPLATE);

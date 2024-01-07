@@ -2,6 +2,7 @@ package me.gurasic.incremental.Listener;
 
 import me.gurasic.incremental.GUIs.PrestigeGUI.PrestigeShopItem;
 import me.gurasic.incremental.GUIs.SuperPrestigeGUI.SuperPrestigeItem;
+import me.gurasic.incremental.Gear;
 import me.gurasic.incremental.Incremental;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
@@ -46,51 +47,24 @@ public class Upgrader implements Listener {
         int WishingLevel = (int) plugin.accessPlayerData(player.getUniqueId(), "WishingPrestigeLevel");
         int SuperPrestigePoints = (int) plugin.accessPlayerData(player.getUniqueId(), "SuperPrestigePoints");
         int SuperPrestigeCount = (int) plugin.accessPlayerData(player.getUniqueId(), "SuperPrestigeLevel");
-        ItemStack Sword1 = new ItemStack(Material.WOODEN_SWORD);
-        ItemStack Sword2 = new ItemStack(Material.STONE_SWORD);
-        ItemStack Sword3 = new ItemStack(Material.IRON_SWORD);
-        ItemStack Sword4 = new ItemStack(Material.DIAMOND_SWORD);
-        ItemStack Axe1 = new ItemStack(Material.WOODEN_AXE);
-        ItemStack Axe2 = new ItemStack(Material.STONE_AXE);
-        ItemStack Axe3 = new ItemStack(Material.IRON_AXE);
-        ItemStack Axe4 = new ItemStack(Material.DIAMOND_AXE);
-        ItemStack Food = new ItemStack(Material.COOKED_BEEF);
-        Food.setAmount(64);
+        Gear gear = new Gear();
+        gear.Food.setAmount(64);
+        gear.arrow.setAmount(5);
         ItemStack arrow = new ItemStack(Material.ARROW);
         arrow.setAmount(6);
-        ItemStack clicker = new ItemStack(Material.LIME_DYE);
-        ItemStack upgrader = new ItemStack(Material.EMERALD);
-        ItemStack leather1 = new ItemStack(Material.LEATHER_HELMET);
-        ItemStack leather2 = new ItemStack(Material.LEATHER_CHESTPLATE);
-        ItemStack leather3 = new ItemStack(Material.LEATHER_LEGGINGS);
-        ItemStack leather4 = new ItemStack(Material.LEATHER_BOOTS);
-        ItemStack chainmail1 = new ItemStack(Material.CHAINMAIL_HELMET);
-        ItemStack chainmail2 = new ItemStack(Material.CHAINMAIL_CHESTPLATE);
-        ItemStack chainmail3 = new ItemStack(Material.CHAINMAIL_LEGGINGS);
-        ItemStack chainmail4 = new ItemStack(Material.CHAINMAIL_BOOTS);
-        ItemStack iron1 = new ItemStack(Material.IRON_HELMET);
-        ItemStack iron2 = new ItemStack(Material.IRON_CHESTPLATE);
-        ItemStack iron3 = new ItemStack(Material.IRON_LEGGINGS);
-        ItemStack iron4 = new ItemStack(Material.IRON_BOOTS);
-        ItemStack charm = new ItemStack(Material.IRON_INGOT);
-        ItemStack bow1 = new ItemStack(Material.BOW);
-        ItemStack bow2 = new ItemStack(Material.BOW);
-        ItemMeta bow2meta = bow2.getItemMeta();
+        ItemMeta bow2meta = gear.bow2.getItemMeta();
         bow2meta.addEnchant(Enchantment.ARROW_DAMAGE, 1, true);
-        bow2.setItemMeta(bow2meta);
-        ItemStack bow3 = new ItemStack(Material.BOW);
-        ItemMeta bow3meta = bow3.getItemMeta();
+        gear.bow2.setItemMeta(bow2meta);
+        ItemMeta bow3meta = gear.bow3.getItemMeta();
         bow3meta.addEnchant(Enchantment.ARROW_DAMAGE, 2, true);
-        bow3.setItemMeta(bow3meta);
-        ItemStack bow4 = new ItemStack(Material.BOW);
-        ItemMeta bow4meta = bow4.getItemMeta();
+        gear.bow3.setItemMeta(bow3meta);
+        ItemMeta bow4meta = gear.bow4.getItemMeta();
         bow4meta.addEnchant(Enchantment.ARROW_DAMAGE, 3, true);
-        bow4.setItemMeta(bow4meta);
-        ItemStack bow5 = new ItemStack(Material.BOW);
-        ItemMeta bow5meta = bow5.getItemMeta();
+        gear.bow4.setItemMeta(bow4meta);
+        ItemMeta bow5meta = gear.bow5.getItemMeta();
         bow5meta.addEnchant(Enchantment.ARROW_DAMAGE, 4, true);
-        bow5.setItemMeta(bow5meta);
-        ItemMeta charmMeta = charm.getItemMeta();
+        gear.bow5.setItemMeta(bow5meta);
+        ItemMeta charmMeta = gear.charm.getItemMeta();
         int defenselevel = (int) plugin.accessPlayerData(player.getUniqueId(), "DefensePrestigeLevel");
         AttributeModifier armorModifier = new AttributeModifier(
                 UUID.randomUUID(),
@@ -100,7 +74,7 @@ public class Upgrader implements Listener {
                 EquipmentSlot.OFF_HAND);
         charmMeta.addAttributeModifier(Attribute.GENERIC_ARMOR, armorModifier);
         charmMeta.displayName(Component.text("Charm of defense (Level " + defenselevel + ")", TextColor.fromHexString("828282")));
-        charm.setItemMeta(charmMeta);
+        gear.charm.setItemMeta(charmMeta);
         if (event.getAction().toString().contains("RIGHT_CLICK") && event.getItem() != null && event.getItem().getType() == Material.EMERALD && event.getPlayer().isSneaking() && (boolean) plugin.accessPlayerData(player.getUniqueId(), "QuickBuy")) {
             int currentPlayerLevel = (int) plugin.accessPlayerData(player.getUniqueId(), "playerLevel");
             int x = 240 - currentPlayerLevel;
@@ -241,109 +215,109 @@ public class Upgrader implements Listener {
             if (ArmorLevel == 0)
             {
                 player.getInventory().clear();
-                player.getInventory().setItem(0, Sword1);
-                player.getInventory().setItem(7, clicker);
-                player.getInventory().setItem(8, upgrader);
-                player.getInventory().addItem(Food);
+                player.getInventory().setItem(0, gear.Sword1);
+                player.getInventory().setItem(7, gear.clicker);
+                player.getInventory().setItem(8, gear.upgrader);
+                player.getInventory().addItem(gear.Food);
                 if ((boolean) plugin.accessPlayerData(player.getUniqueId(), "Crushing_Blows")) {
-                player.getInventory().addItem(Axe1);
+                player.getInventory().addItem(gear.Axe1);
                 }
                 if ((boolean) plugin.accessPlayerData(player.getUniqueId(), "GiveDefenseCharm")) {
-                    player.getInventory().setItem(EquipmentSlot.OFF_HAND, charm);
+                    player.getInventory().setItem(EquipmentSlot.OFF_HAND, gear.charm);
                 }
                 if ((boolean) plugin.accessPlayerData(player.getUniqueId(), "RangerSP")) {
                     if ((boolean) plugin.accessPlayerData(player.getUniqueId(), "Master_Ranger")) {
-                        player.getInventory().addItem(bow2);
-                        player.getInventory().addItem(arrow);
+                        player.getInventory().addItem(gear.bow2);
+                        player.getInventory().addItem(gear.arrow);
                     }
                     else {
-                        player.getInventory().addItem(bow1);
-                        player.getInventory().addItem(arrow);
+                        player.getInventory().addItem(gear.bow1);
+                        player.getInventory().addItem(gear.arrow);
                     }
                 }
             }
             else if (ArmorLevel == 1)
             {
                 player.getInventory().clear();
-                player.getInventory().setItem(EquipmentSlot.HEAD, leather1);
-                player.getInventory().setItem(EquipmentSlot.CHEST, leather2);
-                player.getInventory().setItem(EquipmentSlot.LEGS, leather3);
-                player.getInventory().setItem(EquipmentSlot.FEET, leather4);
-                player.getInventory().setItem(0, Sword2);
-                player.getInventory().setItem(7, clicker);
-                player.getInventory().setItem(8, upgrader);
-                player.getInventory().addItem(Food);
+                player.getInventory().setItem(EquipmentSlot.HEAD, gear.leather1);
+                player.getInventory().setItem(EquipmentSlot.CHEST, gear.leather2);
+                player.getInventory().setItem(EquipmentSlot.LEGS, gear.leather3);
+                player.getInventory().setItem(EquipmentSlot.FEET, gear.leather4);
+                player.getInventory().setItem(0, gear.Sword2);
+                player.getInventory().setItem(7, gear.clicker);
+                player.getInventory().setItem(8, gear.upgrader);
+                player.getInventory().addItem(gear.Food);
                 if ((boolean) plugin.accessPlayerData(player.getUniqueId(), "Crushing_Blows")) {
-                    player.getInventory().addItem(Axe2);
+                    player.getInventory().addItem(gear.Axe2);
                 }
                 if ((boolean) plugin.accessPlayerData(player.getUniqueId(), "GiveDefenseCharm")) {
-                    player.getInventory().setItem(EquipmentSlot.OFF_HAND, charm);
+                    player.getInventory().setItem(EquipmentSlot.OFF_HAND, gear.charm);
                 }
                 if ((boolean) plugin.accessPlayerData(player.getUniqueId(), "RangerSP")) {
                     if ((boolean) plugin.accessPlayerData(player.getUniqueId(), "Master_Ranger")) {
-                        player.getInventory().addItem(bow2);
-                        player.getInventory().addItem(arrow);
+                        player.getInventory().addItem(gear.bow2);
+                        player.getInventory().addItem(gear.arrow);
                     }
                     else {
-                        player.getInventory().addItem(bow1);
-                        player.getInventory().addItem(arrow);
+                        player.getInventory().addItem(gear.bow1);
+                        player.getInventory().addItem(gear.arrow);
                     }
                 }
             }
             else if (ArmorLevel == 2)
             {
                 player.getInventory().clear();
-                player.getInventory().setItem(EquipmentSlot.HEAD, chainmail1);
-                player.getInventory().setItem(EquipmentSlot.CHEST, chainmail2);
-                player.getInventory().setItem(EquipmentSlot.LEGS, chainmail3); //Master_Ranger
-                player.getInventory().setItem(EquipmentSlot.FEET, chainmail4);
-                player.getInventory().setItem(0, Sword3);
-                player.getInventory().setItem(7, clicker);
-                player.getInventory().setItem(8, upgrader);
-                player.getInventory().addItem(Food);
+                player.getInventory().setItem(EquipmentSlot.HEAD, gear.chainmail1);
+                player.getInventory().setItem(EquipmentSlot.CHEST, gear.chainmail2);
+                player.getInventory().setItem(EquipmentSlot.LEGS, gear.chainmail3); //Master_Ranger
+                player.getInventory().setItem(EquipmentSlot.FEET, gear.chainmail4);
+                player.getInventory().setItem(0, gear.Sword3);
+                player.getInventory().setItem(7, gear.clicker);
+                player.getInventory().setItem(8, gear.upgrader);
+                player.getInventory().addItem(gear.Food);
                 if ((boolean) plugin.accessPlayerData(player.getUniqueId(), "Crushing_Blows")) {
-                    player.getInventory().addItem(Axe3);
+                    player.getInventory().addItem(gear.Axe3);
                 }
                 if ((boolean) plugin.accessPlayerData(player.getUniqueId(), "GiveDefenseCharm")) {
-                    player.getInventory().setItem(EquipmentSlot.OFF_HAND, charm);
+                    player.getInventory().setItem(EquipmentSlot.OFF_HAND, gear.charm);
                 }
                 if ((boolean) plugin.accessPlayerData(player.getUniqueId(), "RangerSP")) {
                     if ((boolean) plugin.accessPlayerData(player.getUniqueId(), "Master_Ranger")) {
-                        player.getInventory().addItem(bow3);
-                        player.getInventory().addItem(arrow);
+                        player.getInventory().addItem(gear.bow3);
+                        player.getInventory().addItem(gear.arrow);
                     }
                     else {
-                        player.getInventory().addItem(bow2);
-                        player.getInventory().addItem(arrow);
+                        player.getInventory().addItem(gear.bow2);
+                        player.getInventory().addItem(gear.arrow);
                     }
                 }
-                player.getInventory().addItem(Food);
+                player.getInventory().addItem(gear.Food);
             }
             else if (ArmorLevel == 3)
             {
                 player.getInventory().clear();
-                player.getInventory().setItem(EquipmentSlot.HEAD, iron1);
-                player.getInventory().setItem(EquipmentSlot.CHEST, iron2);
-                player.getInventory().setItem(EquipmentSlot.LEGS, iron3);
-                player.getInventory().setItem(EquipmentSlot.FEET, iron4);
-                player.getInventory().setItem(0, Sword4);
-                player.getInventory().setItem(7, clicker);
-                player.getInventory().setItem(8, upgrader);
-                player.getInventory().addItem(Food);
+                player.getInventory().setItem(EquipmentSlot.HEAD, gear.iron1);
+                player.getInventory().setItem(EquipmentSlot.CHEST, gear.iron2);
+                player.getInventory().setItem(EquipmentSlot.LEGS, gear.iron3);
+                player.getInventory().setItem(EquipmentSlot.FEET, gear.iron4);
+                player.getInventory().setItem(0, gear.Sword4);
+                player.getInventory().setItem(7, gear.clicker);
+                player.getInventory().setItem(8, gear.upgrader);
+                player.getInventory().addItem(gear.Food);
                 if ((boolean) plugin.accessPlayerData(player.getUniqueId(), "Crushing_Blows")) {
-                    player.getInventory().addItem(Axe4);
+                    player.getInventory().addItem(gear.Axe4);
                 }
                 if ((boolean) plugin.accessPlayerData(player.getUniqueId(), "GiveDefenseCharm")) {
-                    player.getInventory().setItem(EquipmentSlot.OFF_HAND, charm);
+                    player.getInventory().setItem(EquipmentSlot.OFF_HAND, gear.charm);
                 }
                 if ((boolean) plugin.accessPlayerData(player.getUniqueId(), "RangerSP")) {
                     if ((boolean) plugin.accessPlayerData(player.getUniqueId(), "Master_Ranger")) {
-                        player.getInventory().addItem(bow3);
-                        player.getInventory().addItem(arrow);
+                        player.getInventory().addItem(gear.bow3);
+                        player.getInventory().addItem(gear.arrow);
                     }
                     else {
-                        player.getInventory().addItem(bow2);
-                        player.getInventory().addItem(arrow);
+                        player.getInventory().addItem(gear.bow2);
+                        player.getInventory().addItem(gear.arrow);
                     }
                 }
             }
