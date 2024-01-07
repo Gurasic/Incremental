@@ -27,7 +27,7 @@ public class WishingUpgradeButton extends AbstractItem {
     }
     @Override
     public ItemProvider getItemProvider() {
-        return new ItemBuilder(Material.MAGENTA_GLAZED_TERRACOTTA).setDisplayName("§aCost "+ accessPlayerData(playerUUID, "WishingPrestigeLevel") + "★");
+        return new ItemBuilder(Material.MAGENTA_GLAZED_TERRACOTTA).setDisplayName("§aCost "+ accessPlayerData(playerUUID, "WishingPrestigeCost") + "★");
     }
 
     @Override

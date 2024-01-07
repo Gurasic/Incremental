@@ -173,18 +173,6 @@ public class Upgrader implements Listener {
                 plugin.storePlayerData(player.getUniqueId(), "playerLevel", 1);
                 plugin.storePlayerData(player.getUniqueId(), "beforeCost", 1);
                 plugin.storePlayerData(player.getUniqueId(), "playerPrestige", 0);
-                plugin.storePlayerData(player.getUniqueId(), "LuckPrestigeLevel", 0);
-                plugin.storePlayerData(player.getUniqueId(), "GenerosityPrestigeCost", 3);
-                plugin.storePlayerData(player.getUniqueId(), "DefensePrestigeLevel", 0);
-                plugin.storePlayerData(player.getUniqueId(), "DefensePrestigeCost", 100);
-                plugin.storePlayerData(player.getUniqueId(), "GiveDefenseCharm", false);
-                plugin.storePlayerData(player.getUniqueId(), "PricesPrestigeLevel", 0);
-                plugin.storePlayerData(player.getUniqueId(), "PricesPrestigeCost", 10);
-                plugin.storePlayerData(player.getUniqueId(), "WishingPrestigeLevel", 0);
-                plugin.storePlayerData(player.getUniqueId(), "ClickerPrestigeLevel", 0);
-                plugin.storePlayerData(player.getUniqueId(), "ClickerPrestigeCost", 2);
-                plugin.storePlayerData(player.getUniqueId(), "ArmorPrestigeLevel", 0);
-                plugin.storePlayerData(player.getUniqueId(), "ArmorPrestigeCost", 3);
                 SPP = ((SuperPrestigeCount * 2) + 2 + l) * BN;
                 plugin.storePlayerData(player.getUniqueId(), "SuperPrestigeLevel", SuperPrestigeCount + (1 + SDR));
                 plugin.storePlayerData(player.getUniqueId(), "SuperPrestigePoints", SPP);
