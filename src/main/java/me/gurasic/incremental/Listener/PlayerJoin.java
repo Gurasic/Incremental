@@ -1,6 +1,5 @@
 package me.gurasic.incremental.Listener;
 
-import io.github.ad417.BreakInfinity.BigDouble;
 import me.gurasic.incremental.GUIs.ChallengeMenu.ChallengeItem;
 import me.gurasic.incremental.GUIs.SuperPrestigeGUI.SuperPrestigeItem;
 import me.gurasic.incremental.Incremental;
