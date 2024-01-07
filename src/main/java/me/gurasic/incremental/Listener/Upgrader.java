@@ -232,7 +232,7 @@ public class Upgrader implements Listener {
             else {
                 int x = lvl_rqm - Points;
                 player.sendMessage(Component.text("You need "+x+" Points to Level up!!", TextColor.fromHexString("#ff4a4a")));
-                player.playSound(player, Sound.ENTITY_SHULKER_HURT, 10f, 0f);
+                player.playSound(player, Sound.ENTITY_SHULKER_HURT_CLOSED,  10f, 1f);
             }
             if ((player_level + ArmorPrestigeUpgrade) % 30 == 0) {
                 plugin.storePlayerData(player.getUniqueId(), "ArmorLevel", ArmorLevel + 1);

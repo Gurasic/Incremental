@@ -68,7 +68,7 @@ public class Clicker implements Listener {
 
             plugin.storePlayerData(player.getUniqueId(), "PlayerSpeedCapBool", false);
         }
-
+        Multi = (Multi + (ClickerPrestige * 3) * l) * Ex;
         boolean hasGW = (boolean) plugin.accessPlayerData(playerId, "Good_Will");
         if (blockMaterial == Material.GOLD_BLOCK || blockMaterial == Material.DIAMOND_BLOCK) {
             UUID currentBlockPlayerId = blockPlayerMap.get(blockMaterial);
@@ -82,8 +82,6 @@ public class Clicker implements Listener {
                 Multi = ((Multi+10) * 2) * h;
             }
         }
-
-        Multi = (Multi + (ClickerPrestige * 3) * l) * Ex;
         if (event.getAction().toString().contains("RIGHT_CLICK") && event.getItem() != null && event.getItem().getType() == Material.LIME_DYE) {
             if ((boolean) plugin.accessPlayerData(playerId, "Fast_Pass") && Level < 61 && !fpu) {
                 ItemMeta FastpassMeta = FastPass.getItemMeta();
