@@ -1,0 +1,4 @@
+name: Incremental
+version: '${version}'
+main: me.gurasic.incremental.Incremental
+api-version: '1.20'
