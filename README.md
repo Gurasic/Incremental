@@ -16,7 +16,7 @@ This was first a silly coding project to improve my coding skills, but i just ke
 ## Plans for the Game
 I have a lot of **ideas** that i could add in the project, since im not limited to the diamondfire limitations i can go crazy with some things
 altrough rn there are a few things to work on before i could do any of those crazy stuff
-* Change a lot of the Ints in the Code into BreakInfnity.java to allow numbers beyond the 32-64 bit limit
+* ~~Change a lot of the Ints in the Code into BreakInfnity.java to allow numbers beyond the 32-64 bit limit~~ Done (Used BigInt insted of BreakInfinity)
 * Rework the way Gear works so that it dosent make my code unredable
 * Finish the rest of the rebirth upgrades
 * Start work on Challenges (Probably code Apotheosis First)
