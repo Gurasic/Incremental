@@ -5,8 +5,8 @@
 </p>
 
 ## What is this?
-This Plugin is a recreation of the +1 clicker minigame found on diamondfire and made by DeepSeaBlue, if you have never played +1 Clicker, you should play the Diamondfire version before playing this one
-To play this in diamondfire join ***mcdiamondfire.com*** and do ***/join 42998*** and you are ready to go, quick reminder to type ***@togglemsg*** in chat as fast as possible, this will turn off prestige messages, thank me later
+This Plugin is a recreation of the +1 clicker minigame found on diamondfire and made by DeepSeaBlue, if you have never played +1 Clicker, you should play the Diamondfire version before playing this one,
+To play this in diamondfire join ***mcdiamondfire.com*** and do ***/join 42998*** and you are ready to go, quick reminder to type ***@togglemsg*** in chat as fast as possible, this will turn off prestige messages, this will save your ears.
 
 ### But why?
 This was first a silly coding project to improve my coding skills, but i just kept adding stuff and well, here we are, as of right now i coded up to the Rebirth layer, this is still very little compared to the diamondfire version, but more tiers are on the work
