@@ -9,7 +9,7 @@ This Plugin is a recreation of the +1 clicker minigame found on diamondfire and 
 ### But why?
 This was first a silly coding project to improve my coding skills, but i just kept adding stuff and well, here we are, as of right now i coded up to the Rebirth layer, this is still very little compared to the diamondfire version, but more tiers are on the work
 ### Yea but What is +1 clicker anyways?
-+1 clicker is an incremental made in Minecraft, The game revolves around the mechanic of gaining and using +1. It is used to upgrade yourself to become stronger. Clicking allows you to gain +1 equal to the clicker level, There are Upgrades, and a LOT more content, feel free to find that yourself :)
++1 clicker is an incremental made in Minecraft, The game revolves around the mechanic of gaining and using +1. It is used to upgrade yourself to become stronger. Clicking allows you to gain +1 equal to the clicker level, There are Upgrades, Combat, Daily, Lottery, and a LOT more content, feel free to find that yourself :)
 
 ## Plans for the Game
 I have a lot of **ideas** that i could add in the project, since im not limited to the diamondfire limitations i can go crazy with some things
@@ -24,7 +24,7 @@ altrough rn there are a few things to work on rn
 This is under the MIT lisence, soo yea, feel free to use the code, or even help me if you want, altrough idk who would want this unredable mess
 
 ## Credits
-Credits go to all the lovly devs of +1 clicker for actually letting me do this 
+Credits go to all the lovely devs of +1 clicker for actually letting me do this
 and also the community itself, i swear its not toxic (trust)
 Huge Thanks to 
 - DeepSeaBue
