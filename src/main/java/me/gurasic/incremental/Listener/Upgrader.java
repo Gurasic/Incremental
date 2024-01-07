@@ -22,6 +22,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionEffectType;
 import org.jetbrains.annotations.NotNull;
 
+import java.math.BigInteger;
 import java.util.Random;
 import java.util.UUID;
 
@@ -141,7 +142,7 @@ public class Upgrader implements Listener {
                     BN2 = 2;
                 }
                 player.damage(5000);
-                plugin.storePlayerData(player.getUniqueId(), "pointCount", 0);
+                plugin.storePlayerData(player.getUniqueId(), "pointCount", new BigInteger("0"));
                 plugin.storePlayerData(player.getUniqueId(), "multiCount", 1);
                 plugin.storePlayerData(player.getUniqueId(), "playerLevel", 1);
                 plugin.storePlayerData(player.getUniqueId(), "beforeCost", 5);
@@ -168,7 +169,7 @@ public class Upgrader implements Listener {
                     BN = 2;
                 }
                 SuperPrestigeItem.HasSp = true;
-                plugin.storePlayerData(player.getUniqueId(), "pointCount", 0);
+                plugin.storePlayerData(player.getUniqueId(), "pointCount", new BigInteger("0"));
                 plugin.storePlayerData(player.getUniqueId(), "multiCount", 1);
                 plugin.storePlayerData(player.getUniqueId(), "playerLevel", 1);
                 plugin.storePlayerData(player.getUniqueId(), "beforeCost", 1);
