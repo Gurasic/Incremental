@@ -5,7 +5,7 @@
 </p>
 
 ## What is this?
-This Plugin is a recreation of the +1 clicker minigame found on diamondfire and made by DeepSeaBlue, if you have never played +1 Clicker, you should play the Diamondfire version before playing this one,
+This plugin is a recreation of the +1 clicker minigame found on diamondfire and made by DeepSeaBlue, if you have never played +1 Clicker, you should play the Diamondfire version before playing this one,
 To play this in diamondfire join ***mcdiamondfire.com*** and do ***/join 42998*** and you are ready to go, quick reminder to type ***@togglemsg*** in chat as fast as possible, this will turn off prestige messages, this will save your ears.
 
 ### But why?
@@ -28,6 +28,7 @@ This is under the MIT lisence, soo yea, feel free to use the code, or even help 
 ## Credits
 Credits go to all the lovely devs of +1 clicker for actually letting me do this
 and also the community itself, i swear its not toxic (trust)
+
 Huge Thanks to 
 - DeepSeaBue
 - Les_Sosna
