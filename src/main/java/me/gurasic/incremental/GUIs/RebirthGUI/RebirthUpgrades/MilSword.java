@@ -28,9 +28,9 @@ public class MilSword extends AbstractItem {
     @Override
     public ItemProvider getItemProvider() {
         if ((boolean) accessPlayerData(playerUUID, "MilSword")) {
-        return new ItemBuilder(Material.LIME_DYE).setDisplayName("§6 Heart of Milweronium §8| §c25♦")
-                .addLoreLines("§7Your §fSword§7 becomes the ")
-                .addLoreLines("§6 Milweronium Blade §7, a weapon")
+        return new ItemBuilder(Material.LIME_DYE).setDisplayName("§6Heart of Milweronium §8| §c25♦")
+                .addLoreLines("§7Your §fSword§7 becomes the")
+                .addLoreLines("§6Milweronium Blade §7, a weapon")
                 .addLoreLines("§7stronger than §fMaxed§7 Swords ")
                 .addLoreLines("")
                 .addLoreLines("§7 You always start with the §6Blade")
@@ -39,8 +39,8 @@ public class MilSword extends AbstractItem {
         }
         else {
             return new ItemBuilder(Material.LIME_DYE).setDisplayName("§6 Heart of Milweronium §8| §c25♦")
-                    .addLoreLines("§7Your §fSword§7 becomes the ")
-                    .addLoreLines("§6 Milweronium Blade §7, a weapon")
+                    .addLoreLines("§7Your §fSword§7 becomes the")
+                    .addLoreLines("§6Milweronium Blade §7, a weapon")
                     .addLoreLines("§7stronger than §fMaxed§7 Swords ")
                     .addLoreLines("")
                     .addLoreLines("§7 You always start with the §6Blade");
