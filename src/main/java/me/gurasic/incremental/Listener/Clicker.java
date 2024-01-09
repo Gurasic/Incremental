@@ -161,14 +161,19 @@ public class Clicker implements Listener {
                 plugin.storePlayerData(player.getUniqueId(), "multiCount", 61);
                 plugin.storePlayerData(player.getUniqueId(), "playerLevel", 61);
                 plugin.storePlayerData(player.getUniqueId(), "beforeCost", lvl_rqm);
-                if ((Level + ArmorPrestigeUpgrade) % 30 == 0) {
+                if ((playerLevel + ArmorPrestigeUpgrade) % 30 == 0) {
                     plugin.storePlayerData(player.getUniqueId(), "ArmorLevel", ArmorLevel + 1);
                 }
                 ArmorLevel = (int) plugin.accessPlayerData(player.getUniqueId(), "ArmorLevel");
                 if (ArmorLevel == 0)
                 {
                     player.getInventory().clear();
-                    player.getInventory().setItem(0, gear.Sword1);
+                    if ((boolean) plugin.accessPlayerData(player.getUniqueId(), "MilSword")) {
+                        player.getInventory().addItem(gear.SwordMil);
+                    }
+                    else {
+                        player.getInventory().setItem(0, gear.Sword1);
+                    }
                     player.getInventory().setItem(7, gear.clicker);
                     player.getInventory().setItem(8, gear.upgrader);
                     player.getInventory().addItem(gear.Food);
@@ -196,7 +201,12 @@ public class Clicker implements Listener {
                     player.getInventory().setItem(EquipmentSlot.CHEST, gear.leather2);
                     player.getInventory().setItem(EquipmentSlot.LEGS, gear.leather3);
                     player.getInventory().setItem(EquipmentSlot.FEET, gear.leather4);
-                    player.getInventory().setItem(0, gear.Sword2);
+                    if ((boolean) plugin.accessPlayerData(player.getUniqueId(), "MilSword")) {
+                        player.getInventory().addItem(gear.SwordMil);
+                    }
+                    else {
+                        player.getInventory().setItem(0, gear.Sword2);
+                    }
                     player.getInventory().setItem(7, gear.clicker);
                     player.getInventory().setItem(8, gear.upgrader);
                     player.getInventory().addItem(gear.Food);
@@ -222,9 +232,14 @@ public class Clicker implements Listener {
                     player.getInventory().clear();
                     player.getInventory().setItem(EquipmentSlot.HEAD, gear.chainmail1);
                     player.getInventory().setItem(EquipmentSlot.CHEST, gear.chainmail2);
-                    player.getInventory().setItem(EquipmentSlot.LEGS, gear.chainmail3); //Master_Ranger
+                    player.getInventory().setItem(EquipmentSlot.LEGS, gear.chainmail3);
                     player.getInventory().setItem(EquipmentSlot.FEET, gear.chainmail4);
-                    player.getInventory().setItem(0, gear.Sword3);
+                    if ((boolean) plugin.accessPlayerData(player.getUniqueId(), "MilSword")) {
+                        player.getInventory().addItem(gear.SwordMil);
+                    }
+                    else {
+                        player.getInventory().setItem(0, gear.Sword3);
+                    }
                     player.getInventory().setItem(7, gear.clicker);
                     player.getInventory().setItem(8, gear.upgrader);
                     player.getInventory().addItem(gear.Food);
@@ -253,7 +268,12 @@ public class Clicker implements Listener {
                     player.getInventory().setItem(EquipmentSlot.CHEST, gear.iron2);
                     player.getInventory().setItem(EquipmentSlot.LEGS, gear.iron3);
                     player.getInventory().setItem(EquipmentSlot.FEET, gear.iron4);
-                    player.getInventory().setItem(0, gear.Sword4);
+                    if ((boolean) plugin.accessPlayerData(player.getUniqueId(), "MilSword")) {
+                        player.getInventory().addItem(gear.SwordMil);
+                    }
+                    else {
+                        player.getInventory().setItem(0, gear.Sword4);
+                    }
                     player.getInventory().setItem(7, gear.clicker);
                     player.getInventory().setItem(8, gear.upgrader);
                     player.getInventory().addItem(gear.Food);

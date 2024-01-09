@@ -2,6 +2,7 @@ package me.gurasic.incremental.Listener;
 
 import me.gurasic.incremental.GUIs.ChallengeMenu.ChallengeItem;
 import me.gurasic.incremental.GUIs.SuperPrestigeGUI.SuperPrestigeItem;
+import me.gurasic.incremental.Gear;
 import me.gurasic.incremental.Incremental;
 import net.kyori.adventure.text.Component;
 import org.bukkit.ChatColor;
@@ -24,6 +25,7 @@ public class PlayerJoin implements Listener {
     }
     @EventHandler
     public void PlayerJoinEvent(PlayerJoinEvent event) {
+     Gear gear = new Gear();
      Player player = event.getPlayer();
      plugin.createPlayerFile(player.getUniqueId());
      plugin.giveRainbowArmor(player);
@@ -91,13 +93,15 @@ public class PlayerJoin implements Listener {
      defaultValues.put("Speedrunner", false);
      defaultValues.put("Brightest_Night", false);
      defaultValues.put("The_Vault", false);
+     defaultValues.put("MilSword", false);
      for (Map.Entry<String, Object> entry : defaultValues.entrySet()) {
          if (plugin.accessPlayerData(player.getUniqueId(), entry.getKey()) == null) {
              plugin.storePlayerData(player.getUniqueId(), entry.getKey(), entry.getValue());
          }
      }
-
-     player.sendMessage(Component.text("1 = " + plugin.accessPlayerData(player.getUniqueId(), "BreakInfnity")));
+     player.getInventory().setItem(0, gear.Sword1);
+     player.getInventory().setItem(7, gear.clicker);
+     player.getInventory().setItem(8, gear.upgrader);
      if ((int) plugin.accessPlayerData(player.getUniqueId(), "SuperPrestigeLevel") > 0
      || (int) plugin.accessPlayerData(player.getUniqueId(), "Rebirth_Level") > 0) {
          SuperPrestigeItem.HasSp = true;

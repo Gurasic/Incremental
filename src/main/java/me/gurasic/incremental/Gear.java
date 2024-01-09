@@ -11,6 +11,7 @@ public class Gear {
     public ItemStack Sword3 = new ItemStack(Material.IRON_SWORD);
     public ItemStack Sword4 = new ItemStack(Material.DIAMOND_SWORD);
     public ItemStack Sword5 = new ItemStack(Material.NETHERITE_SWORD);
+    public ItemStack SwordMil = new ItemStack(Material.GOLDEN_SWORD);
     public ItemStack Axe1 = new ItemStack(Material.WOODEN_AXE);
     public ItemStack Axe2 = new ItemStack(Material.STONE_AXE);
     public ItemStack Axe3 = new ItemStack(Material.IRON_AXE);

@@ -17,6 +17,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionEffectType;
@@ -25,6 +26,7 @@ import org.jetbrains.annotations.NotNull;
 import java.math.BigInteger;
 import java.util.Random;
 import java.util.UUID;
+
 
 public class Upgrader implements Listener {
     private Incremental plugin;
@@ -35,7 +37,7 @@ public class Upgrader implements Listener {
     @EventHandler
     public void onPlayerInteract(PlayerInteractEvent event) {
         Player player = event.getPlayer();
-        @NotNull
+
         int before_cost = (int) plugin.accessPlayerData(player.getUniqueId(), "beforeCost");
         int player_level = (int) plugin.accessPlayerData(player.getUniqueId(), "playerLevel");
         int Points = (int) plugin.accessPlayerData(player.getUniqueId(), "pointCount");
@@ -51,6 +53,15 @@ public class Upgrader implements Listener {
         Gear gear = new Gear();
         gear.Food.setAmount(64);
         gear.arrow.setAmount(5);
+        ItemMeta MilSword = gear.SwordMil.getItemMeta();
+        MilSword.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+        UUID uuid = UUID.randomUUID();
+        double damage = 14.0;
+        AttributeModifier modifier = new AttributeModifier(uuid, "generic.attack_damage", damage, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND);
+        MilSword.addAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE, modifier);
+        MilSword.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        MilSword.displayName(Component.text("Milweronium Blade",TextColor.fromHexString("#fccf03")));
+        gear.SwordMil.setItemMeta(MilSword);
         ItemStack arrow = new ItemStack(Material.ARROW);
         arrow.setAmount(6);
         ItemMeta bow2meta = gear.bow2.getItemMeta();
@@ -120,6 +131,7 @@ public class Upgrader implements Listener {
             int lvl_rqm = before_cost + (int) Math.pow(player_level,2);
             double PriceReduction = Math.ceil(lvl_rqm*Math.pow(0.99, PricesLevel));
             Random random = new Random();
+            player.getInventory().addItem(gear.SwordMil);
             if (player_level >= 240) {
                 int PP = 0;
                 int l = 0;
@@ -204,7 +216,12 @@ public class Upgrader implements Listener {
             if (ArmorLevel == 0)
             {
                 player.getInventory().clear();
-                player.getInventory().setItem(0, gear.Sword1);
+                if ((boolean) plugin.accessPlayerData(player.getUniqueId(), "MilSword")) {
+                    player.getInventory().addItem(gear.SwordMil);
+                }
+                else {
+                    player.getInventory().setItem(0, gear.Sword1);
+                }
                 player.getInventory().setItem(7, gear.clicker);
                 player.getInventory().setItem(8, gear.upgrader);
                 player.getInventory().addItem(gear.Food);
@@ -232,7 +249,12 @@ public class Upgrader implements Listener {
                 player.getInventory().setItem(EquipmentSlot.CHEST, gear.leather2);
                 player.getInventory().setItem(EquipmentSlot.LEGS, gear.leather3);
                 player.getInventory().setItem(EquipmentSlot.FEET, gear.leather4);
-                player.getInventory().setItem(0, gear.Sword2);
+                if ((boolean) plugin.accessPlayerData(player.getUniqueId(), "MilSword")) {
+                    player.getInventory().addItem(gear.SwordMil);
+                }
+                else {
+                    player.getInventory().setItem(0, gear.Sword2);
+                }
                 player.getInventory().setItem(7, gear.clicker);
                 player.getInventory().setItem(8, gear.upgrader);
                 player.getInventory().addItem(gear.Food);
@@ -258,9 +280,14 @@ public class Upgrader implements Listener {
                 player.getInventory().clear();
                 player.getInventory().setItem(EquipmentSlot.HEAD, gear.chainmail1);
                 player.getInventory().setItem(EquipmentSlot.CHEST, gear.chainmail2);
-                player.getInventory().setItem(EquipmentSlot.LEGS, gear.chainmail3); //Master_Ranger
+                player.getInventory().setItem(EquipmentSlot.LEGS, gear.chainmail3);
                 player.getInventory().setItem(EquipmentSlot.FEET, gear.chainmail4);
-                player.getInventory().setItem(0, gear.Sword3);
+                if ((boolean) plugin.accessPlayerData(player.getUniqueId(), "MilSword")) {
+                    player.getInventory().addItem(gear.SwordMil);
+                }
+                else {
+                    player.getInventory().setItem(0, gear.Sword3);
+                }
                 player.getInventory().setItem(7, gear.clicker);
                 player.getInventory().setItem(8, gear.upgrader);
                 player.getInventory().addItem(gear.Food);
@@ -289,7 +316,12 @@ public class Upgrader implements Listener {
                 player.getInventory().setItem(EquipmentSlot.CHEST, gear.iron2);
                 player.getInventory().setItem(EquipmentSlot.LEGS, gear.iron3);
                 player.getInventory().setItem(EquipmentSlot.FEET, gear.iron4);
-                player.getInventory().setItem(0, gear.Sword4);
+                if ((boolean) plugin.accessPlayerData(player.getUniqueId(), "MilSword")) {
+                    player.getInventory().addItem(gear.SwordMil);
+                }
+                else {
+                    player.getInventory().setItem(0, gear.Sword4);
+                }
                 player.getInventory().setItem(7, gear.clicker);
                 player.getInventory().setItem(8, gear.upgrader);
                 player.getInventory().addItem(gear.Food);
