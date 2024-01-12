@@ -48,7 +48,7 @@ public class RebirthGUIItem extends AbstractItem {
         Gui gui = Gui.normal()
                 .setStructure(
                         "# 1 2 3 4 5 6 7 #",
-                        "# . . . . . . . #",
+                        "# 8 . . . . . . #",
                         "# . . . . . . . #",
                         "# . . . . . . . #",
                         "# . . . . . . . #",
@@ -63,6 +63,7 @@ public class RebirthGUIItem extends AbstractItem {
                 .addIngredient('5', new The_Vault(player.getUniqueId()))
                 .addIngredient('6', new MilSword(player.getUniqueId()))
                 .addIngredient('7', new Cut_Trught(player.getUniqueId()))
+                .addIngredient('8', new Block_Fiend(player.getUniqueId()))
                 .build();
          window = Window.single()
                 .setViewer(player)

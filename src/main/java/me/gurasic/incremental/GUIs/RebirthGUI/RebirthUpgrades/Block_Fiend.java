@@ -19,31 +19,29 @@ import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
 
-public class MilSword extends AbstractItem {
+public class Block_Fiend extends AbstractItem {
     private UUID playerUUID;
 
-    public MilSword(UUID playerUUID) {
+    public Block_Fiend(UUID playerUUID) {
         this.playerUUID = playerUUID;
     }
     @Override
     public ItemProvider getItemProvider() {
-        if ((boolean) accessPlayerData(playerUUID, "MilSword")) {
-        return new ItemBuilder(Material.HONEYCOMB).setDisplayName("§6Heart of Milweronium §8| §c25♦")
-                .addLoreLines("§7Your §fSword§7 becomes the")
-                .addLoreLines("§6Milweronium Blade §7, a weapon")
-                .addLoreLines("§7stronger than §fMaxed§7 Swords")
-                .addLoreLines("")
-                .addLoreLines("§7 You always start with the §6Blade")
+        if ((boolean) accessPlayerData(playerUUID, "Block_Fiend")) {
+        return new ItemBuilder(Material.EMERALD_BLOCK).setDisplayName("§3Block Fiend §8| §c10♦")
+                .addLoreLines("§eGold§7 and §bDiamond§7 blocks give")
+                .addLoreLines("§a3x§7 the §a+1§7, they also")
+                .addLoreLines("§7give up to §a5x§7 incrementally")
+                .addLoreLines("§7the longer you use them")
                 .addItemFlags(ItemFlag.HIDE_ENCHANTS)
                 .addEnchantment(Enchantment.LURE, 1, true);
         }
         else {
-            return new ItemBuilder(Material.HONEYCOMB).setDisplayName("§6 Heart of Milweronium §8| §c25♦")
-                    .addLoreLines("§7Your §fSword§7 becomes the")
-                    .addLoreLines("§6Milweronium Blade §7, a weapon")
-                    .addLoreLines("§7stronger than §fMaxed§7 Swords")
-                    .addLoreLines("")
-                    .addLoreLines("§7You always start with the §6Blade");
+            return new ItemBuilder(Material.EMERALD_BLOCK).setDisplayName("§3Block Fiend §8| §c10♦")
+                    .addLoreLines("§eGold§7 and §bDiamond§7 blocks give")
+                    .addLoreLines("§a3x§7 the §a+1§7, they also")
+                    .addLoreLines("§7give up to §a5x§7 incrementally")
+                    .addLoreLines("§7the longer you use them");
         }
     }
 
@@ -51,11 +49,11 @@ public class MilSword extends AbstractItem {
     @Override
     public void handleClick(@NotNull ClickType clickType, @NotNull Player player, @NotNull InventoryClickEvent inventoryClickEvent) {
         int RebirthPoints = (int) accessPlayerData(player.getUniqueId(), "Rebirth_Points");
-        int Cost = 25;
+        int Cost = 10;
         if (clickType.isLeftClick()) {
             if (RebirthPoints >= Cost) {
                 storePlayerData(player.getUniqueId(), "Rebirth_Points", RebirthPoints - Cost);
-                storePlayerData(player.getUniqueId(), "MilSword", true);
+                storePlayerData(player.getUniqueId(), "Block_Fiend", true);
                 player.playSound(player, Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 10f,0f);
                 player.playSound(player, Sound.ENTITY_GENERIC_EXPLODE, 10f,0f);
                 RebirthGUIItem.window.changeTitle("Rebirth Shop | " + accessPlayerData(player.getUniqueId(), "Rebirth_Points") + "♦");

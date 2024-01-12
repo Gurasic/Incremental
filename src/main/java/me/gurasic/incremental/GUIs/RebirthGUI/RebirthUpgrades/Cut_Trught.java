@@ -28,14 +28,14 @@ public class Cut_Trught extends AbstractItem {
     @Override
     public ItemProvider getItemProvider() {
         if ((boolean) accessPlayerData(playerUUID, "Cut_Trough")) {
-        return new ItemBuilder(Material.LIME_DYE).setDisplayName("§3Cut Trough §8| §c15♦")
+        return new ItemBuilder(Material.PAPER).setDisplayName("§3Cut Trough §8| §c15♦")
                 .addLoreLines("§7You can skip to §aPrestige 10")
                 .addLoreLines("§7if you are below it.")
                 .addItemFlags(ItemFlag.HIDE_ENCHANTS)
                 .addEnchantment(Enchantment.LURE, 1, true);
         }
         else {
-            return new ItemBuilder(Material.LIME_DYE).setDisplayName("§3Cut Trough §8| §c15♦")
+            return new ItemBuilder(Material.PAPER).setDisplayName("§3Cut Trough §8| §c15♦")
                     .addLoreLines("§7You can skip to §aPrestige 10")
                     .addLoreLines("§7if you are below it.");
         }

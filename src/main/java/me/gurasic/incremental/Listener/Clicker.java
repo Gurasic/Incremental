@@ -30,12 +30,15 @@ public class Clicker implements Listener {
     private Incremental plugin;
     private boolean fpu = false;
     private boolean cth = false;
-
+    private boolean bf = false;
+    private double clickMultiplier = 1;
+    private double step = 0.05;
     public Clicker(Incremental plugin) {
         this.plugin = plugin;
     }
 
     private HashMap<Material, UUID> blockPlayerMap = new HashMap<>();
+
     public ItemStack FastPass = new ItemStack(Material.PAPER);
     public ItemStack CutTrough = new ItemStack(Material.PAPER);
     @EventHandler
@@ -70,6 +73,9 @@ public class Clicker implements Listener {
         if ((boolean) plugin.accessPlayerData(playerId, "Expertise")) {
             Ex = 5;
         }
+        if ((boolean) plugin.accessPlayerData(playerId, "Block_Fiend")) {
+            h = 3;
+        }
         if ((boolean) plugin.accessPlayerData(playerId, "Healthy") && (boolean) plugin.accessPlayerData(playerId, "HealthyBool")) {
             AttributeInstance maxHealth = player.getAttribute(Attribute.GENERIC_MAX_HEALTH);
             if (maxHealth != null) {
@@ -86,6 +92,11 @@ public class Clicker implements Listener {
         }
         Multi = (Multi + (ClickerPrestige * 3) * l) * Ex; //e
         boolean hasGW = (boolean) plugin.accessPlayerData(playerId, "Good_Will");
+        if (!bf) {
+            clickMultiplier = 0.8;
+            step =  0.05;
+            bf = true;
+        }
         if (blockMaterial == Material.GOLD_BLOCK || blockMaterial == Material.DIAMOND_BLOCK) {
             UUID currentBlockPlayerId = blockPlayerMap.get(blockMaterial);
             if (!hasGW && currentBlockPlayerId != null && !currentBlockPlayerId.equals(playerId)) {
@@ -93,10 +104,20 @@ public class Clicker implements Listener {
             }
             blockPlayerMap.put(blockMaterial, playerId);
             if (blockMaterial == Material.GOLD_BLOCK) {
-                Multi = ((Multi+25) * 5) * h;
+                if ((boolean) plugin.accessPlayerData(playerId, "Block_Fiend")) {
+                    clickMultiplier = Math.min(clickMultiplier + step, 5);
+                }
+                Multi = (int)(((Multi + 25) * 5) * clickMultiplier) * h;
             } else if (blockMaterial == Material.DIAMOND_BLOCK) {
-                Multi = ((Multi+10) * 2) * h;
+                if ((boolean) plugin.accessPlayerData(playerId, "Block_Fiend")) {
+                    clickMultiplier = Math.min(clickMultiplier + step, 5);
+                }
+                Multi = (int)(((Multi + 10) * 2) * clickMultiplier) * h;
             }
+        }
+        else {
+            bf = false;
+            clickMultiplier = 0.8;
         }
         BigInteger x = BigInteger.valueOf(Multi);
         if (event.getAction().toString().contains("RIGHT_CLICK") && event.getItem() != null && event.getItem().getType() == Material.LIME_DYE) {
