@@ -34,5 +34,6 @@ Huge Thanks to
 - DeepSeaBue
 - Les_Sosna
 - And the entire +1 clicker community
+- Fizzie (Helped with code and Bug fixing)
 - Darkomen (Emotional Support)
-- Quantum (He helped me with code like 2 times bruh, and forced me to put it here)
+- Quantum (Helped me with code)
