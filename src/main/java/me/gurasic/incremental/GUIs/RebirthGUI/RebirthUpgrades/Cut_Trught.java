@@ -19,31 +19,25 @@ import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
 
-public class MilSword extends AbstractItem {
+public class Cut_Trught extends AbstractItem {
     private UUID playerUUID;
 
-    public MilSword(UUID playerUUID) {
+    public Cut_Trught(UUID playerUUID) {
         this.playerUUID = playerUUID;
     }
     @Override
     public ItemProvider getItemProvider() {
-        if ((boolean) accessPlayerData(playerUUID, "MilSword")) {
-        return new ItemBuilder(Material.LIME_DYE).setDisplayName("§6Heart of Milweronium §8| §c25♦")
-                .addLoreLines("§7Your §fSword§7 becomes the")
-                .addLoreLines("§6Milweronium Blade §7, a weapon")
-                .addLoreLines("§7stronger than §fMaxed§7 Swords")
-                .addLoreLines("")
-                .addLoreLines("§7 You always start with the §6Blade")
+        if ((boolean) accessPlayerData(playerUUID, "Cut_Trough")) {
+        return new ItemBuilder(Material.LIME_DYE).setDisplayName("§3Cut Trough §8| §c15♦")
+                .addLoreLines("§7You can skip to §aPrestige 10")
+                .addLoreLines("§7if you are below it.")
                 .addItemFlags(ItemFlag.HIDE_ENCHANTS)
                 .addEnchantment(Enchantment.LURE, 1, true);
         }
         else {
-            return new ItemBuilder(Material.LIME_DYE).setDisplayName("§6 Heart of Milweronium §8| §c25♦")
-                    .addLoreLines("§7Your §fSword§7 becomes the")
-                    .addLoreLines("§6Milweronium Blade §7, a weapon")
-                    .addLoreLines("§7stronger than §fMaxed§7 Swords")
-                    .addLoreLines("")
-                    .addLoreLines("§7 You always start with the §6Blade");
+            return new ItemBuilder(Material.LIME_DYE).setDisplayName("§3Cut Trough §8| §c15♦")
+                    .addLoreLines("§7You can skip to §aPrestige 10")
+                    .addLoreLines("§7if you are below it.");
         }
     }
 
@@ -51,11 +45,11 @@ public class MilSword extends AbstractItem {
     @Override
     public void handleClick(@NotNull ClickType clickType, @NotNull Player player, @NotNull InventoryClickEvent inventoryClickEvent) {
         int RebirthPoints = (int) accessPlayerData(player.getUniqueId(), "Rebirth_Points");
-        int Cost = 25;
+        int Cost = 15;
         if (clickType.isLeftClick()) {
             if (RebirthPoints >= Cost) {
                 storePlayerData(player.getUniqueId(), "Rebirth_Points", RebirthPoints - Cost);
-                storePlayerData(player.getUniqueId(), "MilSword", true);
+                storePlayerData(player.getUniqueId(), "Cut_Trough", true);
                 player.playSound(player, Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 10f,0f);
                 player.playSound(player, Sound.ENTITY_GENERIC_EXPLODE, 10f,0f);
                 RebirthGUIItem.window.changeTitle("Rebirth Shop | " + accessPlayerData(player.getUniqueId(), "Rebirth_Points") + "♦");

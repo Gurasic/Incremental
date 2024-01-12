@@ -47,7 +47,7 @@ public class RebirthGUIItem extends AbstractItem {
     public void handleClick(@NotNull ClickType clickType, @NotNull Player player, @NotNull InventoryClickEvent inventoryClickEvent) {
         Gui gui = Gui.normal()
                 .setStructure(
-                        "# 1 2 3 4 5 6 . #",
+                        "# 1 2 3 4 5 6 7 #",
                         "# . . . . . . . #",
                         "# . . . . . . . #",
                         "# . . . . . . . #",
@@ -62,6 +62,7 @@ public class RebirthGUIItem extends AbstractItem {
                 .addIngredient('4', new Brightest_Night(player.getUniqueId()))
                 .addIngredient('5', new The_Vault(player.getUniqueId()))
                 .addIngredient('6', new MilSword(player.getUniqueId()))
+                .addIngredient('7', new Cut_Trught(player.getUniqueId()))
                 .build();
          window = Window.single()
                 .setViewer(player)

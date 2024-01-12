@@ -94,6 +94,7 @@ public class PlayerJoin implements Listener {
      defaultValues.put("Brightest_Night", false);
      defaultValues.put("The_Vault", false);
      defaultValues.put("MilSword", false);
+     defaultValues.put("Cut_Trough", false);
      for (Map.Entry<String, Object> entry : defaultValues.entrySet()) {
          if (plugin.accessPlayerData(player.getUniqueId(), entry.getKey()) == null) {
              plugin.storePlayerData(player.getUniqueId(), entry.getKey(), entry.getValue());

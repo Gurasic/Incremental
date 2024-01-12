@@ -3,6 +3,7 @@ import me.gurasic.incremental.Gear;
 import me.gurasic.incremental.Incremental;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -28,6 +29,7 @@ import java.util.UUID;
 public class Clicker implements Listener {
     private Incremental plugin;
     private boolean fpu = false;
+    private boolean cth = false;
 
     public Clicker(Incremental plugin) {
         this.plugin = plugin;
@@ -35,11 +37,13 @@ public class Clicker implements Listener {
 
     private HashMap<Material, UUID> blockPlayerMap = new HashMap<>();
     public ItemStack FastPass = new ItemStack(Material.PAPER);
+    public ItemStack CutTrough = new ItemStack(Material.PAPER);
     @EventHandler
     public void onPlayerInteract(PlayerInteractEvent event) {
         Player player = event.getPlayer();
         UUID playerId = player.getUniqueId();
         Material blockMaterial = player.getLocation().getBlock().getRelative(0, -1, 0).getType();
+        int PrestigeCount = (int) plugin.accessPlayerData(player.getUniqueId(), "playerPrestige");
         Object pointCount = plugin.accessPlayerData(playerId, "pointCount");
         BigInteger Points;
 
@@ -106,6 +110,16 @@ public class Clicker implements Listener {
                 player.getInventory().addItem(FastPass);
                 fpu = true;
             }
+            if ((boolean) plugin.accessPlayerData(playerId, "Cut_Trough") && PrestigeCount <= 10 && !cth) {
+                ItemMeta CutTrought = CutTrough.getItemMeta();
+                CutTrought.displayName(Component.text("Faster Pass", TextColor.color(71, 219, 222)));
+                List<Component> CTUlore = new ArrayList<>();
+                CTUlore.add(Component.text("Skip ahead to Prestige 10!",TextColor.fromHexString("#969696")));
+                CutTrought.lore(CTUlore);
+                CutTrough.setItemMeta(CutTrought);
+                player.getInventory().addItem(CutTrough);
+                cth = true;
+            }
             int playerCountOnBlock = getPlayerCountOnBlock(blockMaterial);
             int goodWillCountOnBlock = getGoodWillCountOnBlock(blockMaterial);
             if (playerCountOnBlock - goodWillCountOnBlock <= 1 || hasGW) {
@@ -145,6 +159,21 @@ public class Clicker implements Listener {
         charmMeta.addAttributeModifier(Attribute.GENERIC_ARMOR, armorModifier);
         charmMeta.displayName(Component.text("Charm of defense (Level " + defenselevel + ")", TextColor.fromHexString("828282")));
         gear.charm.setItemMeta(charmMeta);
+        if (event.getAction().toString().contains("RIGHT_CLICK") && event.getItem() != null && event.getItem().equals(CutTrough)) {
+            player.getInventory().removeItem(CutTrough);
+            cth = false;
+            int p = 0;
+            player.setHealth(0.0);
+            p = 10 - PrestigeCount;
+            plugin.storePlayerData(player.getUniqueId(), "pointCount", new BigInteger("0"));
+            plugin.storePlayerData(player.getUniqueId(), "multiCount", 1);
+            plugin.storePlayerData(player.getUniqueId(), "playerLevel", 1);
+            plugin.storePlayerData(player.getUniqueId(), "beforeCost", 5);
+            plugin.storePlayerData(player.getUniqueId(), "playerPrestige", PrestigeCount + p);
+            player.sendMessage(Component.text(player.getName()+" got a +"+p+" +1 +1!", TextColor.fromHexString("#ff57c7"), TextDecoration.BOLD));
+            player.playSound(player, Sound.ENTITY_ENDER_DRAGON_DEATH, 15f,0f);
+        }
+
         if (event.getAction().toString().contains("RIGHT_CLICK") && event.getItem() != null && event.getItem().equals(FastPass)) {
             player.getInventory().removeItem(FastPass);
             fpu = false;
