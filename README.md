@@ -16,8 +16,9 @@ This was first a silly coding project to improve my coding skills, but i just ke
 ## Plans for the Game
 I have a lot of **ideas** that i could add in the project, since im not limited to the diamondfire limitations i can go crazy with some things
 altrough rn there are a few things to work on before i could do any of those crazy stuff
-* ~~Change a lot of the Ints in the Code into BreakInfnity.java to allow numbers beyond the 32-64 bit limit~~ Done (Used BigInt insted of BreakInfinity)
-* Rework the way Gear works so that it dosent make my code unredable
+* Change a lot of the Ints in the Code into BigInt to allow numbers beyond the 32-64 bit limit
+(Points are now Big int, but the math isin't soo i still need to do that)
+* ~~Rework the way Gear works so that it dosent make my code unredable~~
 * Finish the rest of the rebirth upgrades
 * Start work on Challenges (Probably code Apotheosis First)
 * Fix whatever ASCII issue is happening (Thanks Fizzie for finding this out)
@@ -34,3 +35,4 @@ Huge Thanks to
 - Les_Sosna
 - And the entire +1 clicker community
 - Darkomen (Emotional Support)
+- Quantum (He helped me with code like 2 times bruh, and forced me to put it here)
