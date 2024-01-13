@@ -184,7 +184,12 @@ public class Clicker implements Listener {
             player.getInventory().removeItem(CutTrough);
             cth = false;
             int p = 0;
-            player.setHealth(0.0);
+            if ((boolean) plugin.accessPlayerData(player.getUniqueId(), "Extreme_Speed")) {
+                // Do Nothing
+            }
+            else {
+                player.setHealth(0.0);
+            }
             p = 10 - PrestigeCount;
             plugin.storePlayerData(player.getUniqueId(), "pointCount", new BigInteger("0"));
             plugin.storePlayerData(player.getUniqueId(), "multiCount", 1);

@@ -64,7 +64,7 @@ public class PrestigeGUI implements Listener {
                 .setViewer(player)
                 .setTitle("Prestige Perks")
                 .setGui(gui)
-                .build();
+                .build(player);
 
         if (blockMaterial == Material.REDSTONE_BLOCK) {
             window.open();

@@ -139,8 +139,12 @@ public class Upgrader implements Listener {
                 int PAS = 1;
                 int BN1 = 0;
                 int BN2 = 1;
+                int ES = 1;
                 if ((boolean) plugin.accessPlayerData(player.getUniqueId(), "The_Perfect_Wish")) {
                     l = 25;
+                }
+                if ((boolean) plugin.accessPlayerData(player.getUniqueId(), "Extreme_Speed")) {
+                    ES = 2;
                 }
                 if ((boolean) plugin.accessPlayerData(player.getUniqueId(), "Hasty_Hands")) {
                     player.addPotionEffect(PotionEffectType.SPEED.createEffect(100,2));
@@ -153,7 +157,12 @@ public class Upgrader implements Listener {
                     BN1 = 10;
                     BN2 = 2;
                 }
-                player.setHealth(0.0);
+                if ((boolean) plugin.accessPlayerData(player.getUniqueId(), "Extreme_Speed")) {
+                    // Do Nothing
+                }
+                else {
+                    player.setHealth(0.0);
+                }
                 plugin.storePlayerData(player.getUniqueId(), "pointCount", new BigInteger("0"));
                 plugin.storePlayerData(player.getUniqueId(), "multiCount", 1);
                 plugin.storePlayerData(player.getUniqueId(), "playerLevel", 1);
@@ -161,7 +170,7 @@ public class Upgrader implements Listener {
                 PP = ((((PrestigeCount+BN1) * 2)  + WishingLevel * 2) + (2 + l) * PAS) * BN2;
                 plugin.storePlayerData(player.getUniqueId(), "playerPrestige", PrestigeCount + 1 + PA);
                 plugin.storePlayerData(player.getUniqueId(), "prestigePoints", PrestigePoints + PP);
-                int Prestige = 1 + PA;
+                int Prestige = (1 + PA) * ES;
                 player.sendMessage(Component.text(player.getName()+" got a +"+Prestige+" +1 +1!", TextColor.fromHexString("#ff57c7"), TextDecoration.BOLD));
                 player.playSound(player, Sound.ENTITY_ENDER_DRAGON_DEATH, 15f,0f);
             }
@@ -181,6 +190,12 @@ public class Upgrader implements Listener {
                     BN = 2;
                 }
                 SuperPrestigeItem.HasSp = true;
+                if ((boolean) plugin.accessPlayerData(player.getUniqueId(), "Extreme_Speed")) {
+                    // Do Nothing
+                }
+                else {
+                    player.setHealth(0.0);
+                }
                 plugin.storePlayerData(player.getUniqueId(), "pointCount", new BigInteger("0"));
                 plugin.storePlayerData(player.getUniqueId(), "multiCount", 1);
                 plugin.storePlayerData(player.getUniqueId(), "playerLevel", 1);

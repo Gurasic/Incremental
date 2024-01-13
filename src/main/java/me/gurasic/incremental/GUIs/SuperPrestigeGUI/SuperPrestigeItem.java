@@ -124,7 +124,7 @@ public class SuperPrestigeItem extends AbstractItem {
                 .setViewer(player)
                 .setTitle("Super Prestige Shop | " + accessPlayerData(player.getUniqueId(), "SuperPrestigePoints") + "☽")
                 .setGui(ShopGUI)
-                .build();
+                .build(player);
         if (clickType.isLeftClick() && HasSp) {
             window.open();
         }

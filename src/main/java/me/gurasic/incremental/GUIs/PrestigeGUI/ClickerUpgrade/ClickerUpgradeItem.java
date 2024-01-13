@@ -54,7 +54,7 @@ public class ClickerUpgradeItem extends AbstractItem {
                 .setViewer(player)
                 .setTitle("Prestige Shop | " + accessPlayerData(player.getUniqueId(), "prestigePoints") + "★")
                 .setGui(ClickerGUI)
-                .build();
+                .build(player);
         if (clickType.isLeftClick()) {
             window.open();
         }
