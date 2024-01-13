@@ -33,7 +33,8 @@ and also the community itself, i swear its not toxic (trust)
 Huge Thanks to 
 - DeepSeaBue
 - Les_Sosna
-- And the entire +1 clicker community
 - Fizzie (Helped with code and Bug fixing)
+- WeAreNoobs (Helped Finding Bugs)
 - Darkomen (Emotional Support)
 - Quantum (Helped me with code)
+- And the Rest of the +1 clicker community
