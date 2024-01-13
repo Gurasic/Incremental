@@ -64,6 +64,8 @@ public class Clicker implements Listener {
         int l = 1;
         int h = 1;
         int Ex = 1;
+        int Mas = 0;
+        int MasX = 1;
         if ((boolean) plugin.accessPlayerData(playerId, "Clicking_Expert")) {
             l = 2;
         }
@@ -75,6 +77,10 @@ public class Clicker implements Listener {
         }
         if ((boolean) plugin.accessPlayerData(playerId, "Block_Fiend")) {
             h = 3;
+        }
+        if ((boolean) plugin.accessPlayerData(playerId, "Mastery")) {
+            Mas = 400;
+            MasX = 3;
         }
         if ((boolean) plugin.accessPlayerData(playerId, "Healthy") && (boolean) plugin.accessPlayerData(playerId, "HealthyBool")) {
             AttributeInstance maxHealth = player.getAttribute(Attribute.GENERIC_MAX_HEALTH);
@@ -90,7 +96,7 @@ public class Clicker implements Listener {
 
             plugin.storePlayerData(player.getUniqueId(), "PlayerSpeedCapBool", false);
         }
-        Multi = (Multi + (ClickerPrestige * 3) * l) * Ex; //e
+        Multi = (((Multi + Mas) + (ClickerPrestige * 3) * l) * Ex) * MasX; //e
         boolean hasGW = (boolean) plugin.accessPlayerData(playerId, "Good_Will");
         if (!bf) {
             clickMultiplier = 0.8;

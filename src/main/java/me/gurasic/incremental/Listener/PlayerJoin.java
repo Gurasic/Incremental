@@ -5,7 +5,10 @@ import me.gurasic.incremental.GUIs.SuperPrestigeGUI.SuperPrestigeItem;
 import me.gurasic.incremental.Gear;
 import me.gurasic.incremental.Incremental;
 import net.kyori.adventure.text.Component;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -27,6 +30,12 @@ public class PlayerJoin implements Listener {
     public void PlayerJoinEvent(PlayerJoinEvent event) {
      Gear gear = new Gear();
      Player player = event.getPlayer();
+//        Bukkit.getScheduler().runTaskTimer(plugin, () -> {
+//            if (player.isOnline()) {
+//                Location loc = new Location(player.getWorld(), 1, -58, 2);
+//                player.sendBlockChange(loc, Material.STONE.createBlockData());
+//            }
+//        }, 0L, 20L); // 20 ticks = 1 second
      plugin.createPlayerFile(player.getUniqueId());
      plugin.giveRainbowArmor(player);
      Map<String, Object> defaultValues = new HashMap<>();
@@ -97,6 +106,7 @@ public class PlayerJoin implements Listener {
      defaultValues.put("Cut_Trough", false);
      defaultValues.put("Block_Fiend", false);
      defaultValues.put("Extreme_Speed", false);
+     defaultValues.put("Mastery", false);
      for (Map.Entry<String, Object> entry : defaultValues.entrySet()) {
          if (plugin.accessPlayerData(player.getUniqueId(), entry.getKey()) == null) {
              plugin.storePlayerData(player.getUniqueId(), entry.getKey(), entry.getValue());
