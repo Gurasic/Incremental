@@ -168,7 +168,7 @@ public class Upgrader implements Listener {
                 plugin.storePlayerData(player.getUniqueId(), "playerLevel", 1);
                 plugin.storePlayerData(player.getUniqueId(), "beforeCost", 5);
                 PP = ((((PrestigeCount+BN1) * 2)  + WishingLevel * 2) + (2 + l) * PAS) * BN2;
-                plugin.storePlayerData(player.getUniqueId(), "playerPrestige", PrestigeCount + 1 + PA);
+                plugin.storePlayerData(player.getUniqueId(), "playerPrestige", PrestigeCount + (1 + PA) * ES);
                 plugin.storePlayerData(player.getUniqueId(), "prestigePoints", PrestigePoints + PP);
                 int Prestige = (1 + PA) * ES;
                 player.sendMessage(Component.text(player.getName()+" got a +"+Prestige+" +1 +1!", TextColor.fromHexString("#ff57c7"), TextDecoration.BOLD));
