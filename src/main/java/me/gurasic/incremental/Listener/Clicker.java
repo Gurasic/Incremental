@@ -89,6 +89,13 @@ public class Clicker implements Listener {
             }
             plugin.storePlayerData(player.getUniqueId(), "HealthyBool", false);
         }
+        if ((boolean) plugin.accessPlayerData(playerId, "Hollow_Heart") && (boolean) plugin.accessPlayerData(playerId, "HollowBool")) {
+            AttributeInstance maxHealth = player.getAttribute(Attribute.GENERIC_MAX_HEALTH);
+            if (maxHealth != null) {
+                maxHealth.setBaseValue(maxHealth.getBaseValue() + 4);
+            }
+            plugin.storePlayerData(player.getUniqueId(), "HollowBool", false);
+        }
         if ((boolean) plugin.accessPlayerData(playerId, "FleetFoot") && (boolean) plugin.accessPlayerData(playerId, "PlayerSpeedCapBool")) {
             float playerSpeed = player.getWalkSpeed();
             playerSpeed = playerSpeed += playerSpeed * (2f/10f);

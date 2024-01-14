@@ -19,7 +19,7 @@ altrough rn there are a few things to work on before i could do any of those cra
 * Change a lot of the Ints in the Code into BigInt to allow numbers beyond the 32-64 bit limit
 (Points are now Big int, but the math isin't soo i still need to do that)
 * ~~Rework the way Gear works so that it dosent make my code unredable~~
-* Finish the rest of the rebirth upgrades
+* ~~Finish the rest of the rebirth upgrades~~
 * Start work on Challenges (Probably code Apotheosis First)
 * Fix whatever ASCII issue is happening (Thanks Fizzie for finding this out)
 

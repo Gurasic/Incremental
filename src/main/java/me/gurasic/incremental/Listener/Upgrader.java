@@ -108,7 +108,7 @@ public class Upgrader implements Listener {
                         if ((boolean) plugin.accessPlayerData(player.getUniqueId(), "The_Perfect_Wish")) {
                             l = 25;
                         }
-                        player.damage(5000);
+                        player.setHealth(0.0);
                         plugin.storePlayerData(player.getUniqueId(), "pointCount", 0);
                         plugin.storePlayerData(player.getUniqueId(), "multiCount", 1);
                         plugin.storePlayerData(player.getUniqueId(), "playerLevel", 1);

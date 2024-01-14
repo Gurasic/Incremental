@@ -107,6 +107,8 @@ public class PlayerJoin implements Listener {
      defaultValues.put("Block_Fiend", false);
      defaultValues.put("Extreme_Speed", false);
      defaultValues.put("Mastery", false);
+     defaultValues.put("Hollow_Heart", false);
+     defaultValues.put("HollowBool", true);
      for (Map.Entry<String, Object> entry : defaultValues.entrySet()) {
          if (plugin.accessPlayerData(player.getUniqueId(), entry.getKey()) == null) {
              plugin.storePlayerData(player.getUniqueId(), entry.getKey(), entry.getValue());

@@ -10,8 +10,6 @@ import xyz.xenondevs.invui.item.builder.ItemBuilder;
 import xyz.xenondevs.invui.item.impl.AbstractItem;
 
 public class ReturnItem extends AbstractItem {
-
-
     @Override
     public ItemProvider getItemProvider() {
         return new ItemBuilder(Material.ARROW).setDisplayName("§cReturn");
