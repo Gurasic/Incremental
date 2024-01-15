@@ -109,6 +109,9 @@ public class PlayerJoin implements Listener {
      defaultValues.put("Mastery", false);
      defaultValues.put("Hollow_Heart", false);
      defaultValues.put("HollowBool", true);
+     defaultValues.put("ApothLevel", 0);
+     defaultValues.put("ApothPoints", 0);
+     defaultValues.put("PlayerHasApoth", false);
      for (Map.Entry<String, Object> entry : defaultValues.entrySet()) {
          if (plugin.accessPlayerData(player.getUniqueId(), entry.getKey()) == null) {
              plugin.storePlayerData(player.getUniqueId(), entry.getKey(), entry.getValue());
@@ -132,12 +135,14 @@ public class PlayerJoin implements Listener {
         RankTiers.put("playerPrestige", (int) plugin.accessPlayerData(player.getUniqueId(), "playerPrestige"));
         RankTiers.put("SuperPrestigeLevel", (int) plugin.accessPlayerData(player.getUniqueId(), "SuperPrestigeLevel"));
         RankTiers.put("Rebirth_Level", (int) plugin.accessPlayerData(player.getUniqueId(), "Rebirth_Level"));
+        RankTiers.put("Apoth_Level", (int) plugin.accessPlayerData(player.getUniqueId(), "ApothLevel"));
 
         StringBuilder formatBuilder = new StringBuilder();
         for (Map.Entry<String, Integer> entry : RankTiers.entrySet()) {
             int count = entry.getValue();
             if (count > 0) {
                 String colorCode = switch (entry.getKey()) {
+                    case "Apoth_Level" -> ChatColor.AQUA.toString();
                     case "Rebirth_Level" -> ChatColor.RED.toString();
                     case "SuperPrestigeLevel" -> ChatColor.DARK_PURPLE.toString();
                     case "playerPrestige" -> ChatColor.GREEN.toString();

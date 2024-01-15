@@ -1,5 +1,6 @@
 package me.gurasic.incremental;
 
+import me.gurasic.incremental.GUIs.ApothGUI.ApothTransListener;
 import me.gurasic.incremental.GUIs.PrestigeGUI.PrestigeGUI;
 import me.gurasic.incremental.GUIs.SuperPrestigeGUI.SuperPrestigeLogic.Hand_Damage;
 import me.gurasic.incremental.GUIs.SuperPrestigeGUI.SuperPrestigeLogic.Steak_Listener;
@@ -35,6 +36,7 @@ public final class Incremental extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new DeathListener(this), this);
         getServer().getPluginManager().registerEvents(new Steak_Listener(this), this);
         getServer().getPluginManager().registerEvents(new Hand_Damage(this), this);
+        getServer().getPluginManager().registerEvents(new ApothTransListener(this), this);
     }
 
     @Override
@@ -130,6 +132,6 @@ public final class Incremental extends JavaPlugin {
                     hue = 0;
                 }
             }
-        }.runTaskTimer(this, 0, 1);  // Run every second (20 ticks = 1 second)
+        }.runTaskTimer(this, 0, 2);  // Run every second (20 ticks = 1 second)
     }
 }

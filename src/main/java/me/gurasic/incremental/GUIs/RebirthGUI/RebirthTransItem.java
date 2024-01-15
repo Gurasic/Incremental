@@ -6,6 +6,8 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.*;
+import org.bukkit.attribute.Attribute;
+import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
@@ -98,7 +100,10 @@ public class RebirthTransItem extends AbstractItem {
                 storePlayerData(player.getUniqueId(), "Blood_Is_Fuel", false);
                 storePlayerData(player.getUniqueId(), "Incredible_Findings", false);
                 player.setWalkSpeed(0.2f);
-                player.setHealth(20);
+                AttributeInstance maxHealth = player.getAttribute(Attribute.GENERIC_MAX_HEALTH);
+                if (maxHealth != null) {
+                    maxHealth.setBaseValue(20);
+                }
                 player.playSound(player, Sound.ENTITY_ENDER_DRAGON_GROWL, 15f, 0f);
                 player.playSound(player, Sound.ENTITY_ENDER_DRAGON_DEATH, 15f,0f);
                 player.playSound(player, Sound.ENTITY_WITHER_HURT, 15f,0f);
