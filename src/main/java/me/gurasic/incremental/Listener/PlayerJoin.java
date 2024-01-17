@@ -9,16 +9,20 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 
+import java.io.File;
+import java.io.IOException;
 import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class PlayerJoin implements Listener {
     private Incremental plugin;
@@ -36,6 +40,7 @@ public class PlayerJoin implements Listener {
 //                player.sendBlockChange(loc, Material.STONE.createBlockData());
 //            }
 //        }, 0L, 20L); // 20 ticks = 1 second
+
      plugin.createPlayerFile(player.getUniqueId());
      plugin.giveRainbowArmor(player);
      Map<String, Object> defaultValues = new HashMap<>();
@@ -117,6 +122,22 @@ public class PlayerJoin implements Listener {
              plugin.storePlayerData(player.getUniqueId(), entry.getKey(), entry.getValue());
          }
      }
+     Map<String, Object> FarmingdefaultValues = new HashMap<>();
+     FarmingdefaultValues.put("Coins", 0);
+     for (Map.Entry<String, Object> entry : FarmingdefaultValues.entrySet()) {
+         if (accessPlayerDataF(player.getUniqueId(), entry.getKey()) == null) {
+             storePlayerDataF(player.getUniqueId(), entry.getKey(), entry.getValue());
+         }
+     }
+        Map<String, Object> IDdefaultValues = new HashMap<>();
+        IDdefaultValues.put("x", 10000);
+        IDdefaultValues.put("y", 100);
+        IDdefaultValues.put("z", 0);
+        for (Map.Entry<String, Object> entry : IDdefaultValues.entrySet()) {
+            if (accessPlayerDataC(entry.getKey()) == null) {
+                storePlayerDataC(entry.getKey(), entry.getValue());
+            }
+        }
      player.getInventory().setItem(0, gear.Sword1);
      player.getInventory().setItem(7, gear.clicker);
      player.getInventory().setItem(8, gear.upgrader);
@@ -154,5 +175,47 @@ public class PlayerJoin implements Listener {
         String playerName = ChatColor.WHITE + event.getPlayer().getDisplayName();
         String message = ChatColor.WHITE + event.getMessage();
         event.setFormat(formatBuilder.toString() + playerName + ": " + message);
+    }
+    public void storePlayerDataF(UUID uuid, String key, Object value) {
+        File playerFile = new File("plugins/Incremental/FarmingData", uuid.toString() + "_Farming.yml");
+        YamlConfiguration playerData = YamlConfiguration.loadConfiguration(playerFile);
+        try {
+            // Store data
+            playerData.set(key, value);
+            playerData.save(playerFile);
+        } catch (IOException e) {
+            Bukkit.getConsoleSender().sendMessage("ERROR storing Farming data! See stacktrace for more details:");
+            e.printStackTrace();
+        }
+    }
+    private Object accessPlayerDataF(UUID uuid, String key) {
+        File playerFile = new File("plugins/Incremental/FarmingData", uuid.toString() + "_Farming.yml");
+        YamlConfiguration playerData = YamlConfiguration.loadConfiguration(playerFile);
+
+        // Access data
+        Object value = playerData.get(key);
+
+        return value;
+    }
+    private Object accessPlayerDataC(String key) {
+        File playerFile = new File("plugins/Incremental", "ImportantData.yml");
+        YamlConfiguration playerData = YamlConfiguration.loadConfiguration(playerFile);
+
+        // Access data
+        Object value = playerData.get(key);
+
+        return value;
+    }
+    public void storePlayerDataC( String key, Object value) {
+        File playerFile = new File("plugins/Incremental", "ImportantData.yml");
+        YamlConfiguration playerData = YamlConfiguration.loadConfiguration(playerFile);
+        try {
+            // Store data
+            playerData.set(key, value);
+            playerData.save(playerFile);
+        } catch (IOException e) {
+            Bukkit.getConsoleSender().sendMessage("ERROR storing Important data! See stacktrace for more details:");
+            e.printStackTrace();
+        }
     }
 }

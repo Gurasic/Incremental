@@ -1,6 +1,10 @@
 package me.gurasic.incremental;
 
 import me.gurasic.incremental.GUIs.ApothGUI.ApothTransListener;
+import me.gurasic.incremental.GUIs.ApothGUI.Farming.FarmingEntry;
+import me.gurasic.incremental.GUIs.ApothGUI.Farming.ListenePlant;
+import me.gurasic.incremental.GUIs.ApothGUI.Farming.Plant;
+import me.gurasic.incremental.GUIs.ApothGUI.Farming.Stage;
 import me.gurasic.incremental.GUIs.PrestigeGUI.PrestigeGUI;
 import me.gurasic.incremental.GUIs.SuperPrestigeGUI.SuperPrestigeLogic.Hand_Damage;
 import me.gurasic.incremental.GUIs.SuperPrestigeGUI.SuperPrestigeLogic.Steak_Listener;
@@ -8,18 +12,20 @@ import me.gurasic.incremental.Listener.Clicker;
 import me.gurasic.incremental.Listener.DeathListener;
 import me.gurasic.incremental.Listener.PlayerJoin;
 import me.gurasic.incremental.Listener.Upgrader;
-import org.bukkit.Bukkit;
+import org.bukkit.*;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.Color;
-import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.bukkit.scheduler.BukkitRunnable;
 import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextColor;
 
 public final class Incremental extends JavaPlugin {
     private static Incremental instance;
@@ -29,6 +35,10 @@ public final class Incremental extends JavaPlugin {
         // Plugin startup logic
         instance = this;
         Bukkit.getConsoleSender().sendMessage("The Grind Never Ends");
+        File folder = new File(getDataFolder(), "FarmingData");
+        if (!folder.exists()) {
+            folder.mkdir();
+        }
         getServer().getPluginManager().registerEvents(new PlayerJoin(this), this);
         getServer().getPluginManager().registerEvents(new Clicker(this), this);
         getServer().getPluginManager().registerEvents(new Upgrader(this), this);
@@ -37,6 +47,8 @@ public final class Incremental extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new Steak_Listener(this), this);
         getServer().getPluginManager().registerEvents(new Hand_Damage(this), this);
         getServer().getPluginManager().registerEvents(new ApothTransListener(this), this);
+        getServer().getPluginManager().registerEvents(new FarmingEntry(), this);
+        getServer().getPluginManager().registerEvents(new ListenePlant(this), this);
     }
 
     @Override
@@ -133,5 +145,62 @@ public final class Incremental extends JavaPlugin {
                 }
             }
         }.runTaskTimer(this, 0, 2);  // Run every second (20 ticks = 1 second)
+    }
+
+    public void plantSeed(Location location, Plant plant, int growTimeInSeconds) {
+        if (!this.isEnabled()) {
+            return;
+        }
+
+        Location nameStandLocation = location.clone().add(0, 1.5, 0);
+        Location timeStandLocation = location.clone().add(0, 1.1, 0);
+        Location blockLocation = location.clone();  // No need to add 2 to the y-coordinate
+
+        ArmorStand nameStand = spawnText(nameStandLocation, Component.text(plant.getName(), NamedTextColor.GREEN));
+        ArmorStand timeStand = spawnText(timeStandLocation, Component.text("Time left: " + formatTime(growTimeInSeconds), NamedTextColor.YELLOW));
+
+        // Start a timer
+        new BukkitRunnable() {
+            int timeLeft = growTimeInSeconds;  // Time left in seconds;
+            @Override
+            public void run() {
+                if (timeLeft <= 0) {
+                    timeStand.customName(Component.text("Fully Grown!!!", NamedTextColor.GOLD));
+                    cancel();
+                } else {
+                    // Update the time left
+                    timeStand.customName(Component.text("Time left: " + formatTime(timeLeft), NamedTextColor.YELLOW));
+                    Stage currentStage = plant.getStageForTime(timeLeft);
+                    if (currentStage != null) {
+                        // Update the plant's growth stage
+                        nameStand.customName(Component.text(plant.getName() + " (" + currentStage.getName() + ")", NamedTextColor.GREEN));
+                        blockLocation.getBlock().setType(currentStage.getMaterial());  // Update the block to the current stage
+                    }
+                    timeLeft--;
+                }
+            }
+        }.runTaskTimer(this, 0L, 20L);  // 20 ticks = 1 second
+    }
+
+
+
+
+    private ArmorStand spawnText(Location location, Component text) {
+        ArmorStand armorStand = location.getWorld().spawn(location, ArmorStand.class);
+        armorStand.setVisible(false);
+        armorStand.setGravity(false);
+        armorStand.setCanPickupItems(false);
+        armorStand.customName(text);
+        armorStand.setMarker(true);
+        armorStand.setCustomNameVisible(true);
+        return armorStand;
+    }
+
+    private String formatTime(int timeInSeconds) {
+        int days = timeInSeconds / 86400;
+        int hours = (timeInSeconds % 86400) / 3600;
+        int minutes = ((timeInSeconds % 86400) % 3600) / 60;
+        int seconds = ((timeInSeconds % 86400) % 3600) % 60;
+        return days + "d" + hours + "h" + minutes + "m" + seconds + "s";
     }
 }
