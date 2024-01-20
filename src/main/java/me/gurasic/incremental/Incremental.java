@@ -151,30 +151,32 @@ public final class Incremental extends JavaPlugin {
         if (!this.isEnabled()) {
             return;
         }
-
+        plant.setLocation(location);
         Location nameStandLocation = location.clone().add(0, 1.5, 0);
         Location timeStandLocation = location.clone().add(0, 1.1, 0);
-        Location blockLocation = location.clone();  // No need to add 2 to the y-coordinate
+        Location blockLocation = location.clone();
 
         ArmorStand nameStand = spawnText(nameStandLocation, Component.text(plant.getName(), NamedTextColor.GREEN));
         ArmorStand timeStand = spawnText(timeStandLocation, Component.text("Time left: " + formatTime(growTimeInSeconds), NamedTextColor.YELLOW));
-
+        plant.getArmorStands().add(nameStand);
+        plant.getArmorStands().add(timeStand);
         // Start a timer
         new BukkitRunnable() {
-            int timeLeft = growTimeInSeconds;  // Time left in seconds;
+            int timeLeft = growTimeInSeconds;
             @Override
             public void run() {
                 if (timeLeft <= 0) {
-                    timeStand.customName(Component.text("Fully Grown!!!", NamedTextColor.GOLD));
+                    plant.getArmorStand(1).customName(Component.text("Fully Grown!!!", NamedTextColor.GOLD));
+                    plant.setFinished(true);
                     cancel();
                 } else {
                     // Update the time left
-                    timeStand.customName(Component.text("Time left: " + formatTime(timeLeft), NamedTextColor.YELLOW));
+                    plant.getArmorStand(1).customName(Component.text("Time left: " + formatTime(timeLeft), NamedTextColor.YELLOW));
                     Stage currentStage = plant.getStageForTime(timeLeft);
                     if (currentStage != null) {
                         // Update the plant's growth stage
-                        nameStand.customName(Component.text(plant.getName() + " (" + currentStage.getName() + ")", NamedTextColor.GREEN));
-                        blockLocation.getBlock().setType(currentStage.getMaterial());  // Update the block to the current stage
+                        plant.getArmorStand(0).customName(Component.text(plant.getName() + " (" + currentStage.getName() + ")", NamedTextColor.GREEN));
+                        blockLocation.getBlock().setType(currentStage.getMaterial());
                     }
                     timeLeft--;
                 }
