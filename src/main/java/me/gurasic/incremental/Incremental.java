@@ -22,6 +22,8 @@ import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.bukkit.scheduler.BukkitRunnable;
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -147,7 +149,9 @@ public final class Incremental extends JavaPlugin {
         }.runTaskTimer(this, 0, 2);  // Run every second (20 ticks = 1 second)
     }
 
-    public void plantSeed(Location location, Plant plant, int growTimeInSeconds) {
+    Map<Player, Map<Location, Plant>> playerPlants = new HashMap<>();
+    Map<Location, Plant> plants = new HashMap<>();
+    public void plantSeed(Location location, Plant plant, int growTimeInSeconds, Player player) {
         if (!this.isEnabled()) {
             return;
         }
@@ -158,8 +162,10 @@ public final class Incremental extends JavaPlugin {
 
         ArmorStand nameStand = spawnText(nameStandLocation, Component.text(plant.getName(), NamedTextColor.GREEN));
         ArmorStand timeStand = spawnText(timeStandLocation, Component.text("Time left: " + formatTime(growTimeInSeconds), NamedTextColor.YELLOW));
-        plant.getArmorStands().add(nameStand);
-        plant.getArmorStands().add(timeStand);
+        plant.addArmorStand("nameStand", nameStand);
+        plant.addArmorStand("timeStand", timeStand);
+        plants.put(location, plant);
+        playerPlants.put(player, plants);
         // Start a timer
         new BukkitRunnable() {
             int timeLeft = growTimeInSeconds;
@@ -171,11 +177,11 @@ public final class Incremental extends JavaPlugin {
                     cancel();
                 } else {
                     // Update the time left
-                    plant.getArmorStand(1).customName(Component.text("Time left: " + formatTime(timeLeft), NamedTextColor.YELLOW));
+                    plant.getArmorStand("timeStand").customName(Component.text("Time left: " + formatTime(timeLeft), NamedTextColor.YELLOW));
                     Stage currentStage = plant.getStageForTime(timeLeft);
                     if (currentStage != null) {
                         // Update the plant's growth stage
-                        plant.getArmorStand(0).customName(Component.text(plant.getName() + " (" + currentStage.getName() + ")", NamedTextColor.GREEN));
+                        plant.getArmorStand("nameStand").customName(Component.text(plant.getName() + " (" + currentStage.getName() + ")", NamedTextColor.GREEN));
                         blockLocation.getBlock().setType(currentStage.getMaterial());
                     }
                     timeLeft--;
