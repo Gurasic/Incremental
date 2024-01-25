@@ -151,7 +151,7 @@ public final class Incremental extends JavaPlugin {
 
     Map<Player, Map<Location, Plant>> playerPlants = new HashMap<>();
     Map<Location, Plant> plants = new HashMap<>();
-    public void plantSeed(Location location, Plant plant, int growTimeInSeconds, Player player) {
+    public void plantSeed(Location location, Plant plant, int growTimeInSeconds, Player player, int speedLevel) {
         if (!this.isEnabled()) {
             return;
         }
@@ -159,7 +159,7 @@ public final class Incremental extends JavaPlugin {
         Location nameStandLocation = location.clone().add(0, 1.5, 0);
         Location timeStandLocation = location.clone().add(0, 1.1, 0);
         Location blockLocation = location.clone();
-
+        // for SpeedUpgrade :D
         ArmorStand nameStand = spawnText(nameStandLocation, Component.text(plant.getName(), NamedTextColor.GREEN));
         ArmorStand timeStand = spawnText(timeStandLocation, Component.text("Time left: " + formatTime(growTimeInSeconds), NamedTextColor.YELLOW));
         plant.addArmorStand("nameStand", nameStand);
@@ -168,13 +168,15 @@ public final class Incremental extends JavaPlugin {
         playerPlants.put(player, plants);
         // Start a timer
         new BukkitRunnable() {
-            int timeLeft = growTimeInSeconds;
+            int growTimeInSeconds2 = growTimeInSeconds - (int)(growTimeInSeconds * (speedLevel * 0.01));
+            int timeLeft = growTimeInSeconds2;
             @Override
             public void run() {
+                timeLeft--;
                 if (timeLeft <= 0) {
-                    plant.getArmorStand(1).customName(Component.text("Fully Grown!!!", NamedTextColor.GOLD));
+                    plant.getArmorStand("timeStand").customName(Component.text("Fully Grown!!!", NamedTextColor.GOLD));
                     plant.setFinished(true);
-                    cancel();
+                    this.cancel(); // Ensure the task is cancelled
                 } else {
                     // Update the time left
                     plant.getArmorStand("timeStand").customName(Component.text("Time left: " + formatTime(timeLeft), NamedTextColor.YELLOW));
@@ -184,10 +186,10 @@ public final class Incremental extends JavaPlugin {
                         plant.getArmorStand("nameStand").customName(Component.text(plant.getName() + " (" + currentStage.getName() + ")", NamedTextColor.GREEN));
                         blockLocation.getBlock().setType(currentStage.getMaterial());
                     }
-                    timeLeft--;
                 }
             }
         }.runTaskTimer(this, 0L, 20L);  // 20 ticks = 1 second
+
     }
 
 

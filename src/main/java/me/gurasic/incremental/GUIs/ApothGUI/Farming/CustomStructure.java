@@ -4,24 +4,24 @@ package me.gurasic.incremental.GUIs.ApothGUI.Farming;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
 import me.gurasic.incremental.Listener.HeadCache;
+import net.kyori.adventure.bossbar.BossBar;
 import net.kyori.adventure.text.Component;
-import org.bukkit.Bukkit;
-import org.bukkit.Material;
-import org.bukkit.Rotation;
-import org.bukkit.World;
+import net.kyori.adventure.text.format.TextDecoration;
+import net.kyori.adventure.text.minimessage.MiniMessage;
+import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
+import org.bukkit.block.data.Bisected;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Stairs;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.ItemFrame;
-import org.bukkit.entity.Player;
+import org.bukkit.entity.*;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.scheduler.BukkitRunnable;
-
+import net.kyori.adventure.text.format.NamedTextColor;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.UUID;
 
 
@@ -50,13 +50,8 @@ public class CustomStructure {
                         String item = blockType.substring(blockType.indexOf("[") + 1, blockType.indexOf("]"));
                         String rotation = blockType.substring(blockType.lastIndexOf("[") + 1, blockType.lastIndexOf("]"));
                         ItemFrame itemFrame = (ItemFrame) world.spawnEntity(block.getLocation(), EntityType.ITEM_FRAME);
-                        itemFrame.setItem(new ItemStack(Material.getMaterial(item.toUpperCase())));
+                        itemFrame.setItem(new ItemStack(Objects.requireNonNull(Material.getMaterial(item.toUpperCase()))));
                         itemFrame.setRotation(Rotation.valueOf(rotation.toUpperCase()));
-                    } else if (blockType.contains("stairs")) {
-                        String rotation = blockType.substring(blockType.indexOf("[") + 1, blockType.indexOf("]"));
-                        Stairs stairs = (Stairs) Bukkit.createBlockData(blockType.substring(0, blockType.indexOf("[")));
-                        stairs.setFacing(BlockFace.valueOf(rotation.toUpperCase()));
-                        block.setBlockData(stairs);
                     } else {
                         BlockData blockData = Bukkit.createBlockData(blockType);
                         block.setBlockData(blockData);
@@ -65,4 +60,20 @@ public class CustomStructure {
             }
         }
     }
+
+    private BlockFace convertFacing(String rotation) {
+        switch (rotation.toLowerCase()) {
+            case "north":
+                return BlockFace.NORTH;
+            case "south":
+                return BlockFace.SOUTH;
+            case "east":
+                return BlockFace.EAST;
+            case "west":
+                return BlockFace.WEST;
+            default:
+                throw new IllegalArgumentException("Invalid facing value: " + rotation);
+        }
+    }
+
 }

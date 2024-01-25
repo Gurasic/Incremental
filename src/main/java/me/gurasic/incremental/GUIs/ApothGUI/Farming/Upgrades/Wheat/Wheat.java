@@ -35,11 +35,12 @@ public class Wheat extends AbstractItem {
         Gui gui = Gui.normal()
                 .setStructure(
                         "D # # # W # # # D",
-                        "D D 1 . . . . D D",
+                        "D D 1 2 . . . D D",
                         "D # # # # # # # D")
                 .addIngredient('#', GlassGray)
                 .addIngredient('D', GlassDark)
                 .addIngredient('1', new Value(player.getUniqueId()))
+                .addIngredient('2', new Speed(player.getUniqueId()))
                 .addIngredient('W', getItemProvider())
                 .build();
 

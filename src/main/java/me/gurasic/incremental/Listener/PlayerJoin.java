@@ -125,8 +125,11 @@ public class PlayerJoin implements Listener {
      Map<String, Object> FarmingdefaultValues = new HashMap<>();
      FarmingdefaultValues.put("Coins", 0);
      FarmingdefaultValues.put("Wheat", 0);
+     FarmingdefaultValues.put("WheatBuff", false);
      FarmingdefaultValues.put("WheatValue", 0);
      FarmingdefaultValues.put("WheatValueCost", 5);
+     FarmingdefaultValues.put("WheatSpeed", 0);
+     FarmingdefaultValues.put("WheatSpeedCost", 100);
      for (Map.Entry<String, Object> entry : FarmingdefaultValues.entrySet()) {
          if (accessPlayerDataF(player.getUniqueId(), entry.getKey()) == null) {
              storePlayerDataF(player.getUniqueId(), entry.getKey(), entry.getValue());
